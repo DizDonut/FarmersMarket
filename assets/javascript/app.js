@@ -21,6 +21,9 @@ $(document).ready(function(){
     renderResults(map);
 
   });//end submit on click event
+  
+  // allows for hamburger menu collapse to work
+	$(".button-collapse").sideNav();
 
   /*
     renderResults function takes one parameter, loop through the results array and
@@ -56,3 +59,5 @@ $(document).ready(function(){
   };
 
 })//end document ready
+	
+
