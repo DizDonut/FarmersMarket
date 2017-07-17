@@ -32,14 +32,13 @@ $(document).ready(function(){
     $("#results-go-here").empty();
 
     for (var i = 0; i < results.length; i++) {
-
       var iframes = $("<iframe>", {
         src:          source,
         frameborder:  "0",
         width:        "100%",
-        height:       "100%"
-      }).appendTo("#results-go-here");
-    };
+        height:       "100"
+      }).append("#results-go-here");
+    }
   };
 
   /*
@@ -52,7 +51,6 @@ $(document).ready(function(){
       "key":  "AIzaSyC-esHVNQ4muZerDSPt3ChxUd8-agTMc_c",
       "q": "Farmers+Market+near" + zip
     });
-    return url;
   };
 
 })//end document ready
