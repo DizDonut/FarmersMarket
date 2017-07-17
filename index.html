@@ -17,10 +17,19 @@
       <div class="navbar-fixed">
         <nav>
           <div class="nav-wrapper green">
-            <a href="#" class="brand-logo right">My Farmer's Market</a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-              <li><a href="#">Search</a></li>
-              <li><a href="#">Recipes</a></li>
+            <a href="#!" class="brand-logo">My Farmer's Market</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <!-- hides menu on medium devices and smaller -->
+            <ul class="right hide-on-med-and-down"> 
+              <li><a href="#">Sass</a></li>
+              <li><a href="#">Components</a></li>
+              <li><a href="#">Javascript</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a href="#">Sass</a></li>
+              <li><a href="#">Components</a></li>
+              <li><a href="#">Javascript</a></li>
               <li><a href="#">About</a></li>
             </ul>
           </div>
@@ -28,11 +37,25 @@
       </div>
       
       
+      <!-- ZIP code search bar -->
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s2 left">
+              <input id="zipSearch" type="text" class="validate">
+              <label for="zipSearch" data-error="wrong" data-success="right">ZIP Code <i class="material-icons">pageview</i></label>
+            </div>
+          </div>
+        </form>
+      </div>
+      
 
       <div style="height:500px"></div>
 
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="assets/javascript/bin/materialize.min.js"></script>
+
+      <script type="text/javascript" src="assets/javascript/app.js"></script>
     </body>
   </html>
