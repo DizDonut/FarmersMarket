@@ -47,7 +47,6 @@ $(document).ready(function(){
       }).appendTo("#results-go-here");
     };
   };
-
   /*
     initMap function takes one parameter and concatenates that parameter with the global
     url variable, google maps embed API key, and other pertinent q (query) information
