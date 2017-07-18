@@ -75,6 +75,7 @@ $(document).ready(function() {
                 var results = response.results;
 
                 var popoutList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
+                popoutList.collapsible();
 
                 for (var i = 0; i < results.length; i++) {
                     id = results[i].id;
