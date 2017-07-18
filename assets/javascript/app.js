@@ -1,7 +1,7 @@
+//empty array for search results
+var results = [];
+
 $(document).ready(function(){
-  //empty array for search results
-  //should be initialized to an empty array every time the the page loads
-  var results = [];
 
   //beginning of google maps embed api url
   var url = "https://www.google.com/maps/embed/v1/search"
@@ -16,14 +16,16 @@ $(document).ready(function(){
 
     //push value of map variable to our results array
     results.push(map);
+    console.log(results);
+    console.log(map);
 
     //call renderResults function, passing the map variable as an argument
     renderResults(map);
 
   });//end submit on click event
-  
+
   // allows for hamburger menu collapse to work
-	$(".button-collapse").sideNav();
+	// $(".button-collapse").sideNav();
 
   /*
     renderResults function takes one parameter, loop through the results array and
@@ -32,13 +34,14 @@ $(document).ready(function(){
   */
 
   function renderResults(source){
-    $("#results-go-here").empty();
+    // $("#results-go-here").empty();
 
     for (var i = 0; i < results.length; i++) {
 
       var iframes = $("<iframe>", {
         src:          source,
         frameborder:  "0",
+        zoom:         "10",
         width:        "100%",
         height:       "100%"
       }).appendTo("#results-go-here");
@@ -59,5 +62,3 @@ $(document).ready(function(){
   };
 
 })//end document ready
-	
-
