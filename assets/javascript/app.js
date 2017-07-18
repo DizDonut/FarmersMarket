@@ -10,6 +10,9 @@ $(document).ready(function() {
 
         $("#submit").on("click", function(event) {
             event.preventDefault();
+
+            //TODO: (suggestion - Jim) clear list of farmer's markets currently displayed
+
             //retrieve input from user
             var zipCode = $("#zipSearch").val().trim();
 
@@ -74,6 +77,7 @@ $(document).ready(function() {
             }).done(function(response) {
                 var results = response.results;
 
+                // builds beginning of collapsible list
                 var popoutList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
                 popoutList.collapsible();
 
@@ -86,18 +90,42 @@ $(document).ready(function() {
                     // $("#ajaxResults").append(divs);
 
                     var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
-                    var popoutBody = "<div class='collapsible-body'><span>Loren Ipsum</span></div>";
+                    var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
                     var listItem = "<li>";
 
+                    // append each returned result as a list item to the DOM
                     popoutList.append(listItem + popoutHeader + popoutBody);
                     $("#ajaxResults").append(popoutList);
                 }
 
+                scrapeFoodsInSeason();
+
             }); //end ajax call
 
-        } //end function
+        } //end getResults function
 
         // allows for hamburger menu collapse to work
         $(".button-collapse").sideNav();
+
+        //TODO: Jim - scrape website for foods in season data
+        function scrapeFoodsInSeason() {
+            // get state of most recent ZIP search, from ajax call to USDA
+            var state;
+
+            // search the external site by the state, return state's page
+            //place scraping functions here
+
+            // (use moment.js for current month)
+            var currentMonth = (moment().month()) + 1;
+            console.log("Current Month: " + currentMonth);
+
+            // search for list of foods depending on current month
+
+            // update DOM with list of foods in season
+            // create an ID in the html for foods in season
+            // change text to say "List of foods in season in [state] for the month of [currentMonth]"
+            // give credit to site data source
+
+        } // end scrapeFoodsInSeason() function
 
     }) //end document ready
