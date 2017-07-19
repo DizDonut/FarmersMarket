@@ -120,6 +120,10 @@ $(document).ready(function() {
             console.log("Current Month: " + currentMonth);
 
             // search for list of foods depending on current month
+            // use this link: http://www.eattheseasons.com/seasons.php
+            // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
+            // https://api.apifier.com/v1/execs/XLwk7NFn7DAf84vgS/results
+
 
             // update DOM with list of foods in season
             // create an ID in the html for foods in season
