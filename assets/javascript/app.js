@@ -116,7 +116,7 @@ $(document).ready(function() {
             //place scraping functions here
 
             // (use moment.js for current month)
-            var currentMonth = (moment().month()) + 1;
+            var currentMonth = moment().format('MMMM');
             console.log("Current Month: " + currentMonth);
 
             // search for list of foods depending on current month
