@@ -16,6 +16,7 @@
 
 <body>
 
+    <!-- TODO: Jim - add scrollspy feature -->
     <!-- fixed navigation bar -->
     <div class="navbar-fixed">
         <nav>
@@ -23,15 +24,15 @@
                 <a href="#!" class="brand-logo">My Farmer's Market</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <!-- hides menu on medium devices and smaller -->
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Find A Market</a></li>
-                    <li><a href="#">Foods In Season</a></li>
-                    <li><a href="#">About</a></li>
+                <ul class="section table-of-contents right hide-on-med-and-down">
+                    <li><a href="#zipSearch">Find A Market</a></li>
+                    <li><a href="#foodsInSeason">Foods In Season</a></li>
+                    <li><a href="#about">About</a></li>
                 </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href="#">Find A Market</a></li>
-                    <li><a href="#">Foods In Season</a></li>
-                    <li><a href="#">About</a></li>
+                <ul class="side-nav section table-of-contents" id="mobile-demo">
+                    <li><a href="#zipSearch">Find A Market</a></li>
+                    <li><a href="#foodsInSeason">Foods In Season</a></li>
+                    <li><a href="#about">About</a></li>
                 </ul>
             </div>
         </nav>
@@ -45,7 +46,7 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s2 left">
-                    <input id="zipSearch" type="text" class="validate">
+                    <input id="zipSearch" type="text" class="validate section scrollspy">
                     <label for="zipSearch">ZIP Code <i class="material-icons hide-on-small-only">pageview</i></label>
                     <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
                 </div>
@@ -53,9 +54,20 @@
         </form>
     </div>
 
+    <!-- Current foods in season -->
+    <div class="row section scrollspy" id="foodsInSeason">
+      <table class="responsive-table striped" id="foodTable">
+        <tbody>
+        <tr>
+          <td id="food"></td>
+        </tr>
+          <!-- add table of the foods here -->
+        </tbody>
+      </table>
+    </div>
+
     <!-- accordion results from ajax call display here  -->
     <div class="row" id="ajaxResults"></div>
-
 
     <div style="height:750px"></div>
 
@@ -78,7 +90,7 @@
             </div>
         </div>
         <div class="footer-copyright">
-            <div class="container">
+            <div id="about" class="container section scrollspy">
                 © 2017 Copyright Text
                 <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>

@@ -4,14 +4,13 @@ var mapResults = [];
 $(document).ready(function() {
 
         $('.collapsible').collapsible();
+        $('.scrollspy').scrollSpy();
 
         //beginning of google maps embed api url
         var url = "https://www.google.com/maps/embed/v1/search"
 
         $("#submit").on("click", function(event) {
             event.preventDefault();
-
-            //TODO: (suggestion - Jim) clear list of farmer's markets currently displayed
 
             //retrieve input from user
             var zipCode = $("#zipSearch").val().trim();
@@ -62,6 +61,8 @@ $(document).ready(function() {
         };
 
         function getResults(zip) {
+            $("#ajaxResults").empty(); // clear 
+
             var id = "";
             var name = "";
 
@@ -91,14 +92,13 @@ $(document).ready(function() {
 
                     var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
                     var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
+                    var starRatings = "<div><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span></div>"
                     var listItem = "<li>";
 
                     // append each returned result as a list item to the DOM
-                    popoutList.append(listItem + popoutHeader + popoutBody);
+                    popoutList.append(listItem + popoutHeader + popoutBody + starRatings);
                     $("#ajaxResults").append(popoutList);
                 }
-
-                scrapeFoodsInSeason();
 
             }); //end ajax call
 
@@ -107,29 +107,43 @@ $(document).ready(function() {
         // allows for hamburger menu collapse to work
         $(".button-collapse").sideNav();
 
-        //TODO: Jim - scrape website for foods in season data
-        function scrapeFoodsInSeason() {
-            // get state of most recent ZIP search, from ajax call to USDA
-            var state;
+        //TODO: Jim - display foods in season based on current month in the DOM
+        function foodsInSeason() {
 
-            // search the external site by the state, return state's page
-            //place scraping functions here
-
-            // (use moment.js for current month)
-            var currentMonth = moment().format('MMMM');
+            // (moment.js for current month)
+            var currentMonth = moment().month();
             console.log("Current Month: " + currentMonth);
 
-            // search for list of foods depending on current month
-            // use this link: http://www.eattheseasons.com/seasons.php
+            // JSON data obtained via web crawler below:
             // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
-            // https://api.apifier.com/v1/execs/XLwk7NFn7DAf84vgS/results
+            var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
 
+            $.ajax({
+              type: "GET",
+              contentType: "application/json",
+              url: foodsDataURL
+            })
+            .done(function(response){
+              console.log(response[currentMonth].pageFunctionResult.foods);
+              // use JSON file to display foods for current month
+              $("#foodsInSeason").text(response[currentMonth].pageFunctionResult.foods);
 
-            // update DOM with list of foods in season
-            // create an ID in the html for foods in season
-            // change text to say "List of foods in season in [state] for the month of [currentMonth]"
-            // give credit to site data source
+              var foodString = response[currentMonth].pageFunctionResult.foods;
+              
+              // TODO: Jim - remove all /n from foodString, then remove blank items
+              foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
 
-        } // end scrapeFoodsInSeason() function
+              var foodArray = foodString.split(',');
+
+              console.log(foodArray);
+
+              for (i = 0 ; i < foodArray.length ; i++){
+                $("#foodTable > tbody").append("<tr><td>" + foodArray[i] + "</td></tr>");
+              }
+            });
+
+        } // end foodsInSeason() function
+
+      foodsInSeason(); // run function on load
 
     }) //end document ready
