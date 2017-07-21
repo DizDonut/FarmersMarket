@@ -28,16 +28,7 @@ $(document).ready(function() {
         
       })//end accordion click event
 
-
-        // allows for hamburger menu collapse to work
-        $(".button-collapse").sideNav();
-
-      
-  
-  
-  //TODO: Jim - scrape website for foods in season data
-  //ourFunctions.foodsInSeason(); // run function on load
-
+    
 /*
   object to hold the functions
 */
@@ -163,19 +154,15 @@ var ourFunctions = {
               url: foodsDataURL
             })
             .done(function(response){
-              console.log(response[currentMonth].pageFunctionResult.foods);
-              // use JSON data to display foods for current month
-
               var foodString = response[currentMonth].pageFunctionResult.foods;
               
               // remove all /n from foodString, then remove blank items
               foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
-
               var foodArray = foodString.split(',');
 
               // remove blank items in array
               for(var i = foodArray.length-1; i >= 0; i--){  
-                  if(foodArray[i] == ''){           
+                  if(foodArray[i] === ''){           
                       foodArray.splice(i,1);               
                   }
               }
@@ -188,7 +175,6 @@ var ourFunctions = {
                 + foodArray[i+3] + "</td></tr>");
               }
             });
-
         }, // end foodsInSeason() function
 
     createComments: function(){
