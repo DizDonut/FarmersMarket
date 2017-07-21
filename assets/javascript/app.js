@@ -63,8 +63,8 @@ $(document).ready(function() {
         };
 
 
-        function getResults(zip) {
-            $("#ajaxResults").empty(); // clear 
+        // function getResults(zip) {
+        //     $("#ajaxResults").empty(); // clear 
 
         /*
           getFirstResults function accepts one parameter and makes an ajax call using the USDA API to pull back
@@ -102,15 +102,11 @@ $(document).ready(function() {
 
                     var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
 
-                    var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
                     var starRatings = "<div><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span></div>"
 
                     var popoutBody = "<div id='" + id + "' class='collapsible-body'><span>Lorem Ipsum</span></div>";
 
-
                     var listItem = "<li>";
-
-
 
                     // append each returned result as a list item to the DOM
                     popoutList.append(listItem + popoutHeader + popoutBody + starRatings);
@@ -119,7 +115,7 @@ $(document).ready(function() {
 
             }); //end ajax call
 
-        } //end getResults function
+        }; //end getResults function
 
         /*
           getSecondResults takes one parameter, makes a second call to the USDA api
@@ -131,28 +127,27 @@ $(document).ready(function() {
           @param argID: value returned from the getFirstResults function
         */
 
-        getSecondResults($(this).("id"));
+        // getSecondResults($(this).("id"));
 
 
         function getSecondResults(argID){
-        $.ajax({
-          type: "GET",
-          contentType: "application/json; charset=utf-8",
-          // submit a get request to the restful service mktDetail.
-          url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + argID,
-          dataType: 'jsonp',
-          jsonpCallback: 'detailResultHandler'
-        }).done(function(detailresults){
-          console.log(detailresults)
-          for (var key in detailresults) {
-              var address = detailresults.marketdetails.Address;
-              var linky = detailresults.marketdetails.GoogleLink;
+          $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            // submit a get request to the restful service mktDetail.
+            url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + argID,
+            dataType: 'jsonp',
+            jsonpCallback: 'detailResultHandler'
+          }).done(function(detailresults){
+            console.log(detailresults)
+            for (var key in detailresults) {
+                var address = detailresults.marketdetails.Address;
+                var linky = detailresults.marketdetails.GoogleLink;
 
 
 
-            }; //end for loop
-          }); //end ajax call
-
+              }; //end for loop
+            }); //end ajax call
         }; //end getSecondResults function
 
         //on load: display foods in season based on current month in the DOM
@@ -173,19 +168,15 @@ $(document).ready(function() {
               url: foodsDataURL
             })
             .done(function(response){
-              console.log(response[currentMonth].pageFunctionResult.foods);
-              // use JSON data to display foods for current month
-
               var foodString = response[currentMonth].pageFunctionResult.foods;
               
               // remove all /n from foodString, then remove blank items
               foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
-
               var foodArray = foodString.split(',');
 
               // remove blank items in array
               for(var i = foodArray.length-1; i >= 0; i--){  
-                  if(foodArray[i] == ''){           
+                  if(foodArray[i] === ''){           
                       foodArray.splice(i,1);               
                   }
               }
@@ -199,8 +190,9 @@ $(document).ready(function() {
               }
             });
 
-        } // end foodsInSeason() function
+        }; // end foodsInSeason() function
 
       foodsInSeason(); // run function on load
 
-    }) //end document ready
+
+}); //end document ready
