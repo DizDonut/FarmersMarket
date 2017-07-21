@@ -24,7 +24,7 @@ $(document).ready(function() {
 
             //call renderResults function, passing the map variable as an argument
             renderResults(map);
-            getResults(zipCode);
+            getFirstResults(zipCode);
 
         }); //end submit on click event
 
@@ -53,15 +53,26 @@ $(document).ready(function() {
           url variable, google maps embed API key, and other pertinent q (query) information
           @param zip: zip will be the value returned from the user input form
         */
-        function initMap(zip) {
+        function initMap(address) {
             url += "?" + $.param({
                 "key": "AIzaSyC-esHVNQ4muZerDSPt3ChxUd8-agTMc_c",
-                "q": "Farmers+Market+near" + zip
+                "q": "Farmers+Markets+near" + address
             });
             return url;
         };
 
-        function getResults(zip) {
+var idArray = [];
+
+        /*
+          getFirstResults function accepts one parameter and makes an ajax call using the USDA API to pull back
+          the ID of each farmers market within a certain radius of the given zip code.  This function will also dynamically
+          create collapsible elements on the page and place divs within those elements, that will later be populated
+          on the call of the getSecondResults function.
+
+          @param zip: the value of the zip code entered by the user on the search page
+        */
+
+        function getFirstResults(zip) {
             var id = "";
             var name = "";
 
@@ -85,24 +96,59 @@ $(document).ready(function() {
                     id = results[i].id;
                     name = results[i].marketname;
 
-                    // var divs = $("<div>");
-                    // divs.html(name);
-                    // $("#ajaxResults").append(divs);
 
                     var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
-                    var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
+                    var popoutBody = "<div id='" + id + "' class='collapsible-body'><span>Lorem Ipsum</span></div>";
+
                     var listItem = "<li>";
+
+
 
                     // append each returned result as a list item to the DOM
                     popoutList.append(listItem + popoutHeader + popoutBody);
                     $("#ajaxResults").append(popoutList);
-                }
+                } //end for loop for dynamic collapse elements
 
                 scrapeFoodsInSeason();
 
             }); //end ajax call
 
         } //end getResults function
+
+
+        /*
+          getSecondResults takes one parameter, makes a second call to the USDA api
+          and pulls back the marketdetails associated with the ID that we pass into
+          the parameter.  Using the marketdetails, this function will also dynamically
+          create iframe elements where a call to the google maps embed API will show the
+          location on a google map element
+
+          @param argID: value returned from the getFirstResults function
+        */
+
+        getSecondResults($(this).("id"));
+
+
+        function getSecondResults(argID){
+        $.ajax({
+          type: "GET",
+          contentType: "application/json; charset=utf-8",
+          // submit a get request to the restful service mktDetail.
+          url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + argID,
+          dataType: 'jsonp',
+          jsonpCallback: 'detailResultHandler'
+        }).done(function(detailresults){
+          console.log(detailresults)
+          for (var key in detailresults) {
+              var address = detailresults.marketdetails.Address;
+              var linky = detailresults.marketdetails.GoogleLink;
+
+
+
+            }; //end for loop
+          }); //end ajax call
+
+        }; //end getSecondResults function
 
         // allows for hamburger menu collapse to work
         $(".button-collapse").sideNav();

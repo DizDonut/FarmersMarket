@@ -5,6 +5,16 @@
     <title>Search Results</title>
     <!-- Bootstrap - Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!--Import Google Icon Font (Material Icons)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    <!--website optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
@@ -16,7 +26,7 @@
             <div class="panel-body">
               <form class="searchForm" action="">
                 <div class="form-group">
-                  <input type="text" id="search-value" placeholder="Zip...">
+                  <input type="text" id="zipSearch" placeholder="Zip...">
                 </div>
                 <button class="btn btn-primary submit-btn" type="submit" form="searchForm" id="submit">Submit</button>
               </form> <!-- end form -->
@@ -24,7 +34,7 @@
         </div> <!-- end panel -->
       </div> <!-- end first row -->
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-body">
               <div id="results-go-here">
@@ -48,6 +58,11 @@
 
 
 
+    <!-- Compiled and minified Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+    <!-- Moment.js  -->
+    <script type="text/javascript" src="assets/javascript/moment.js"></script>
     <!-- link to javascrip file -->
     <script type="text/javascript" src="assets/javascript/app.js"></script>
   </body>
