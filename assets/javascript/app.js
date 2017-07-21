@@ -56,16 +56,18 @@ $(document).ready(function() {
         function initMap(address) {
             url += "?" + $.param({
                 "key": "AIzaSyC-esHVNQ4muZerDSPt3ChxUd8-agTMc_c",
-                "q": address
+                "q": "Farmers+Markets+near" + address
             });
             return url;
         };
+
+var idArray = [];
 
         /*
           getFirstResults function accepts one parameter and makes an ajax call using the USDA API to pull back
           the ID of each farmers market within a certain radius of the given zip code.  This function will also dynamically
           create collapsible elements on the page and place divs within those elements, that will later be populated
-          on the call of the getSecondResults function.  Returns the ID of the farmers markets
+          on the call of the getSecondResults function.
 
           @param zip: the value of the zip code entered by the user on the search page
         */
@@ -94,13 +96,13 @@ $(document).ready(function() {
                     id = results[i].id;
                     name = results[i].marketname;
 
-                    // var divs = $("<div>");
-                    // divs.html(name);
-                    // $("#ajaxResults").append(divs);
 
                     var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
-                    var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
+                    var popoutBody = "<div id='" + id + "' class='collapsible-body'><span>Lorem Ipsum</span></div>";
+
                     var listItem = "<li>";
+
+
 
                     // append each returned result as a list item to the DOM
                     popoutList.append(listItem + popoutHeader + popoutBody);
@@ -110,8 +112,6 @@ $(document).ready(function() {
                 scrapeFoodsInSeason();
 
             }); //end ajax call
-
-            getSecondResults(id);
 
         } //end getResults function
 
@@ -126,33 +126,25 @@ $(document).ready(function() {
           @param argID: value returned from the getFirstResults function
         */
 
+        getSecondResults($(this).("id"));
+
+
         function getSecondResults(argID){
         $.ajax({
-          ////////////////////////
-          /*  ajax call to be
-              to be completed
-              by Steve         */
-          ///////////////////////
+          type: "GET",
+          contentType: "application/json; charset=utf-8",
+          // submit a get request to the restful service mktDetail.
+          url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + argID,
+          dataType: 'jsonp',
+          jsonpCallback: 'detailResultHandler'
+        }).done(function(detailresults){
+          console.log(detailresults)
+          for (var key in detailresults) {
+              var address = detailresults.marketdetails.Address;
+              var linky = detailresults.marketdetails.GoogleLink;
 
 
-        }).done(function(response){
-          var details = response.marketdetails;
-          console.log(details);
 
-            for (var i = 0; i < details.length; i++) {
-              var mapID = details[i].GoogleLink;
-              var address = details[i].Address;
-
-              var source = initMap(address);
-              console.log(source);
-
-              var iframes = $("<iframe>", {
-                src: source,
-                frameborder: "0",
-                zoom: "10",
-                width: "100%",
-                height: "100%"
-              }).appendTo(".collapsible-body");
             }; //end for loop
           }); //end ajax call
 
