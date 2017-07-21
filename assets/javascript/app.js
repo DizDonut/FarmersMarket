@@ -1,12 +1,13 @@
 $(document).ready(function() {
 
+        // jQuery functions so certain classes work on dynamic created elements
         $('.collapsible').collapsible();
+        $('.scrollspy').scrollSpy();
+        $(".button-collapse").sideNav();
 
 
         $(document).on("click", "#submit", function(event) {
             event.preventDefault();
-
-            //TODO: (suggestion - Jim) clear list of farmer's markets currently displayed
 
             //retrieve input from user
             var zipCode = $("#zipSearch").val().trim();
@@ -21,18 +22,18 @@ $(document).ready(function() {
 
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
-
         ourFunctions.createComments();
-
       })//end accordion click event
 
 
         // allows for hamburger menu collapse to work
         $(".button-collapse").sideNav();
 
-        //TODO: Jim - scrape website for foods in season data
-
-
+      
+  
+  
+  //TODO: Jim - scrape website for foods in season data
+  ourfunctions.foodsInSeason(); // run function on load
 
 /*
   object to hold the functions
@@ -139,29 +140,51 @@ var ourFunctions = {
     }); //end ajax call
   },
 
-  scrapeFoodsInSeason: function() {
-      // get state of most recent ZIP search, from ajax call to USDA
-      var state;
+//on load: display foods in season based on current month in the DOM
+        foodsInSeason: function () {
+            // (moment.js for current month)
+            var currentMonth = moment().month();
+            var currentMonthText = moment().format('MMMM');
+            console.log("Current Month: " + currentMonth);
+            $("#current-month").text("Foods in season for the month of " + currentMonthText);
 
-      // search the external site by the state, return state's page
-      //place scraping functions here
+            // JSON data obtained via web crawler Apifier API:
+            // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
+            var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
 
-      // (use moment.js for current month)
-      var currentMonth = moment().format('MMMM');
-      console.log("Current Month: " + currentMonth);
+            $.ajax({
+              type: "GET",
+              contentType: "application/json",
+              url: foodsDataURL
+            })
+            .done(function(response){
+              console.log(response[currentMonth].pageFunctionResult.foods);
+              // use JSON data to display foods for current month
 
-      // search for list of foods depending on current month
-      // use this link: http://www.eattheseasons.com/seasons.php
-      // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
-      // https://api.apifier.com/v1/execs/XLwk7NFn7DAf84vgS/results
+              var foodString = response[currentMonth].pageFunctionResult.foods;
+              
+              // remove all /n from foodString, then remove blank items
+              foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
 
+              var foodArray = foodString.split(',');
 
-      // update DOM with list of foods in season
-      // create an ID in the html for foods in season
-      // change text to say "List of foods in season in [state] for the month of [currentMonth]"
-      // give credit to site data source
+              // remove blank items in array
+              for(var i = foodArray.length-1; i >= 0; i--){  
+                  if(foodArray[i] == ''){           
+                      foodArray.splice(i,1);               
+                  }
+              }
+              console.log(foodArray);
 
-    }, // end scrapeFoodsInSeason() function
+              $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
+
+              for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
+                $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
+                + foodArray[i+3] + "</td></tr>");
+              }
+            });
+
+        }, // end foodsInSeason() function
 
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")

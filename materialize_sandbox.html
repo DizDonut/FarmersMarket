@@ -1,4 +1,22 @@
-<!-- Materialize sandbox for testing -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font (Material Icons)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    <!--website optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>My Farmer's Market</title>
+</head>
+
+<body>
+
+      <!-- Materialize sandbox for testing -->
       <div class="container">
         <h1>Colors</h1>
         <div class="red darken-2 white-text">Div with color class</div>
@@ -53,6 +71,46 @@
         <div class="hide-on-med-and-up">Hidden for tablets and higher</div>
         <div class="hide-on-large-only">Hidden for desktops</div>
 
+
+        <!-- form -->
+        <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s3">
+          <input placeholder="Name" id="name" type="text" class="validate">
+          <label for="first_name">Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+          <label for="disabled">Disabled</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          This is an inline input field:
+          <div class="input-field inline">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right">Email</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+        
         <!-- truncate -->
         <h4 class="truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, fugiat, necessitatibus architecto tenetur vero aliquam dolorem, nam iste quasi sit quae provident a quod officia dignissimos illum repellat magni praesentium.</h4>
 
@@ -81,3 +139,18 @@
       </div> <!-- close container -->
 
       <!-- navigation -->
+
+<!-- Minified jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+    <!-- Moment.js  -->
+    <script type="text/javascript" src="assets/javascript/moment.js"></script>
+
+    <!-- App.js file for primary app logic -->
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+
+</html>
