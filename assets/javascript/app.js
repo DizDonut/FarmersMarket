@@ -23,6 +23,9 @@ $(document).ready(function() {
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
         ourFunctions.createComments();
+        var marketId = $(this).attr("id");
+        ourFunctions.getSecondResults(marketId);
+        
       })//end accordion click event
 
 
@@ -33,7 +36,7 @@ $(document).ready(function() {
   
   
   //TODO: Jim - scrape website for foods in season data
-  ourfunctions.foodsInSeason(); // run function on load
+  //ourFunctions.foodsInSeason(); // run function on load
 
 /*
   object to hold the functions
@@ -101,8 +104,8 @@ var ourFunctions = {
         id = results[i].id;
         name = results[i].marketname;
 
-        var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
-        var popoutBody = "<div id='" + id + "' class='collapsible-body'><span>Lorem Ipsum</span></div>";
+        var popoutHeader = "<div id='" + id + "'class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
+        var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
         var listItem = "<li>";
 
         // append each returned result as a list item to the DOM
@@ -136,6 +139,8 @@ var ourFunctions = {
     for (var key in detailresults) {
         var address = detailresults.marketdetails.Address;
         var linky = detailresults.marketdetails.GoogleLink;
+        console.log(address);
+        console.log(linky);
       }; //end for loop
     }); //end ajax call
   },
