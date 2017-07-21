@@ -1,0 +1,73 @@
+[{
+        "month": "JANUARY",
+        "foods": "'brussel sprouts','butternut squash','celery root', 'kale', 'leeks',
+        'potatoes(maincrop)',
+        'rutabaga',
+        'sunchoke',
+        turnips,
+        oranges,
+        goose,
+        rabbit,
+        venison,
+        crab,
+        mussels,
+        oysters,
+        scallops ",
+        "url": "http://www.eattheseasons.com/january.php"
+    },
+    {
+        "month": "FEBRUARY",
+        "foods": "brussels sproutsbutternut squashcelery rootkaleleekspotatoes (maincrop)rutabagasunchoketurnipsorangesrabbitvenisoncrabmusselsoystersscallops",
+        "url": "http://www.eattheseasons.com/february.php"
+    },
+    {
+        "month": "MARCH",
+        "foods": "celery rootkaleleekspotatoes (maincrop)rutabagasunchoketurnipsorangesorangescrabmussels",
+        "url": "http://www.eattheseasons.com/march.php"
+    },
+    {
+        "month": "APRIL",
+        "foods": "artichokeasparagusfava beanskaleradishesrhubarbturnipsorangeslambcrabmackerel",
+        "url": "http://www.eattheseasons.com/april.php"
+    },
+    {
+        "month": "MAY",
+        "foods": "artichokeasparaguscornfava beansradishesrhubarbzucchinistrawberrieslambcrabmackerel",
+        "url": "http://www.eattheseasons.com/may.php"
+    },
+    {
+        "month": "JUNE",
+        "foods": "asparaguscornradishesrhubarbzucchinipassion fruitplumsstrawberrieslambmackerel",
+        "url": "http://www.eattheseasons.com/june.php"
+    },
+    {
+        "month": "JULY",
+        "foods": "beetscorneggplantradishesrhubarbzucchiniblackberriespassion fruitpeachesplumsstrawberrieslamb",
+        "url": "http://www.eattheseasons.com/july.php"
+    },
+    {
+        "month": "AUGUST",
+        "foods": "artichokebeetscorneggplantradishesrhubarbzucchiniblackberriesfigspeachesplumslamb",
+        "url": "http://www.eattheseasons.com/august.php"
+    },
+    {
+        "month": "SEPTEMBER",
+        "foods": "artichokebeetscorneggplantpotatoes (maincrop)radishesappleschestnutspearsplumsraspberrieslamb",
+        "url": "http://www.eattheseasons.com/september.php"
+    },
+    {
+        "month": "OCTOBER",
+        "foods": "artichokebeetsbrussels sproutsbutternut squashcelery rootleekspotatoes (maincrop)radishesappleschestnutspearsplumslambrabbitvenisonmussels",
+        "url": "http://www.eattheseasons.com/october.php"
+    },
+    {
+        "month": "NOVEMBER",
+        "foods": "brussels sproutsbutternut squashcelery rootleekspotatoes (maincrop)rutabagasunchoketurnipsappleschestnutspearslambrabbitvenisoncrabmusselsoystersscallops",
+        "url": "http://www.eattheseasons.com/november.php"
+    },
+    {
+        "month": "DECEMBER",
+        "foods": "brussels sproutsbutternut squashcelery rootleekspotatoes (maincrop)rutabagasunchoketurnipsorangesgooserabbitvenisoncrabmusselsoystersscallops",
+        "url": "http://www.eattheseasons.com/december.php"
+    }
+]

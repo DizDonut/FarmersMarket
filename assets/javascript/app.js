@@ -3,15 +3,16 @@ var mapResults = [];
 
 $(document).ready(function() {
 
+        // jQuery functions so certain classes work on dynamic created elements
         $('.collapsible').collapsible();
+        $('.scrollspy').scrollSpy();
+        $(".button-collapse").sideNav();
 
         //beginning of google maps embed api url
         var url = "https://www.google.com/maps/embed/v1/search"
 
         $("#submit").on("click", function(event) {
             event.preventDefault();
-
-            //TODO: (suggestion - Jim) clear list of farmer's markets currently displayed
 
             //retrieve input from user
             var zipCode = $("#zipSearch").val().trim();
@@ -61,7 +62,9 @@ $(document).ready(function() {
             return url;
         };
 
-var idArray = [];
+
+        function getResults(zip) {
+            $("#ajaxResults").empty(); // clear 
 
         /*
           getFirstResults function accepts one parameter and makes an ajax call using the USDA API to pull back
@@ -98,23 +101,25 @@ var idArray = [];
 
 
                     var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
+
+                    var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
+                    var starRatings = "<div><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span></div>"
+
                     var popoutBody = "<div id='" + id + "' class='collapsible-body'><span>Lorem Ipsum</span></div>";
+
 
                     var listItem = "<li>";
 
 
 
                     // append each returned result as a list item to the DOM
-                    popoutList.append(listItem + popoutHeader + popoutBody);
+                    popoutList.append(listItem + popoutHeader + popoutBody + starRatings);
                     $("#ajaxResults").append(popoutList);
                 } //end for loop for dynamic collapse elements
-
-                scrapeFoodsInSeason();
 
             }); //end ajax call
 
         } //end getResults function
-
 
         /*
           getSecondResults takes one parameter, makes a second call to the USDA api
@@ -150,32 +155,52 @@ var idArray = [];
 
         }; //end getSecondResults function
 
-        // allows for hamburger menu collapse to work
-        $(".button-collapse").sideNav();
-
-        //TODO: Jim - scrape website for foods in season data
-        function scrapeFoodsInSeason() {
-            // get state of most recent ZIP search, from ajax call to USDA
-            var state;
-
-            // search the external site by the state, return state's page
-            //place scraping functions here
-
-            // (use moment.js for current month)
-            var currentMonth = moment().format('MMMM');
+        //on load: display foods in season based on current month in the DOM
+        function foodsInSeason() {
+            // (moment.js for current month)
+            var currentMonth = moment().month();
+            var currentMonthText = moment().format('MMMM');
             console.log("Current Month: " + currentMonth);
+            $("#current-month").text("Foods in season for the month of " + currentMonthText);
 
-            // search for list of foods depending on current month
-            // use this link: http://www.eattheseasons.com/seasons.php
+            // JSON data obtained via web crawler Apifier API:
             // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
-            // https://api.apifier.com/v1/execs/XLwk7NFn7DAf84vgS/results
+            var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
 
+            $.ajax({
+              type: "GET",
+              contentType: "application/json",
+              url: foodsDataURL
+            })
+            .done(function(response){
+              console.log(response[currentMonth].pageFunctionResult.foods);
+              // use JSON data to display foods for current month
 
-            // update DOM with list of foods in season
-            // create an ID in the html for foods in season
-            // change text to say "List of foods in season in [state] for the month of [currentMonth]"
-            // give credit to site data source
+              var foodString = response[currentMonth].pageFunctionResult.foods;
+              
+              // remove all /n from foodString, then remove blank items
+              foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
 
-        } // end scrapeFoodsInSeason() function
+              var foodArray = foodString.split(',');
+
+              // remove blank items in array
+              for(var i = foodArray.length-1; i >= 0; i--){  
+                  if(foodArray[i] == ''){           
+                      foodArray.splice(i,1);               
+                  }
+              }
+              console.log(foodArray);
+
+              $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
+
+              for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
+                $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
+                + foodArray[i+3] + "</td></tr>");
+              }
+            });
+
+        } // end foodsInSeason() function
+
+      foodsInSeason(); // run function on load
 
     }) //end document ready
