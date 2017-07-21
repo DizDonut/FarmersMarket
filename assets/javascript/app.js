@@ -3,8 +3,10 @@ var mapResults = [];
 
 $(document).ready(function() {
 
+        // jQuery functions so certain classes work on dynamic created elements
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
+        $(".button-collapse").sideNav();
 
         //beginning of google maps embed api url
         var url = "https://www.google.com/maps/embed/v1/search"
@@ -104,17 +106,16 @@ $(document).ready(function() {
 
         } //end getResults function
 
-        // allows for hamburger menu collapse to work
-        $(".button-collapse").sideNav();
-
-        //TODO: Jim - display foods in season based on current month in the DOM
+        //on load: display foods in season based on current month in the DOM
         function foodsInSeason() {
 
             // (moment.js for current month)
             var currentMonth = moment().month();
+            var currentMonthText = moment().format('MMMM');
             console.log("Current Month: " + currentMonth);
+            $("#current-month").text("Foods in season for the month of " + currentMonthText);
 
-            // JSON data obtained via web crawler below:
+            // JSON data obtained via web crawler Apifier API:
             // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
             var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
 
@@ -125,20 +126,28 @@ $(document).ready(function() {
             })
             .done(function(response){
               console.log(response[currentMonth].pageFunctionResult.foods);
-              // use JSON file to display foods for current month
-              $("#foodsInSeason").text(response[currentMonth].pageFunctionResult.foods);
+              // use JSON data to display foods for current month
 
               var foodString = response[currentMonth].pageFunctionResult.foods;
               
-              // TODO: Jim - remove all /n from foodString, then remove blank items
+              // remove all /n from foodString, then remove blank items
               foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
 
               var foodArray = foodString.split(',');
 
+              // remove blank items in array
+              for(var i = foodArray.length-1; i >= 0; i--){  
+                  if(foodArray[i] == ''){           
+                      foodArray.splice(i,1);               
+                  }
+              }
               console.log(foodArray);
 
-              for (i = 0 ; i < foodArray.length ; i++){
-                $("#foodTable > tbody").append("<tr><td>" + foodArray[i] + "</td></tr>");
+              $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
+
+              for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
+                $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
+                + foodArray[i+3] + "</td></tr>");
               }
             });
 
