@@ -27,10 +27,9 @@ $(document).ready(function() {
       $(document).on("click", ".modal-trigger", function(event){
         $(".modal-trigger").leanModal();
       })
-      
+
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
-        ourFunctions.createComments();
         var marketId = $(this).attr("id");
         ourFunctions.getSecondResults(marketId);
 
@@ -130,6 +129,8 @@ var ourFunctions = {
     @param argID: value returned from the getFirstResults function
   */
   getSecondResults: function(argID){
+    var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
+
   $.ajax({
     type: "GET",
     contentType: "application/json; charset=utf-8",
@@ -146,10 +147,12 @@ var ourFunctions = {
         var linky = detailresults.marketdetails.GoogleLink;
         var schedule = detailresults.marketdetails.Schedule;
         var products = detailresults.marketdetails.Products;
-        $(".collapsible-body").html("<a href= " + linky + ">Google Link</a>" 
+        $(".collapsible-body").html("<a target='_blank' href= " + linky + ">Google Link</a>"
                                   + "<p>" + address + "</p>"
                                   + "<p>" + schedule + "</p>"
-                                  + "<p>" + products + "</p>");
+                                  + "<p>" + products + "</p>"
+                                  + "<p>" + commentModal + "</p>");
+
       }; //end for loop
     }); //end ajax call
   },
@@ -173,15 +176,15 @@ var ourFunctions = {
       })
       .done(function(response){
         var foodString = response[currentMonth].pageFunctionResult.foods;
-        
+
         // remove all /n from foodString array
         foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
         var foodArray = foodString.split(',');
 
         // remove blank items in foodString array
-        for(var i = foodArray.length-1; i >= 0; i--){  
-            if(foodArray[i] === ''){           
-                foodArray.splice(i,1);               
+        for(var i = foodArray.length-1; i >= 0; i--){
+            if(foodArray[i] === ''){
+                foodArray.splice(i,1);
             }
         }
         console.log(foodArray);
@@ -194,13 +197,6 @@ var ourFunctions = {
         }
       });
   }, // end foodsInSeason() function
-
-    createComments: function(){
-      var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
-      $(".collapsible-body").html(commentModal);
-
-
-    } //end createComments function
 
 
   }//end function object
