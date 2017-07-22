@@ -1,100 +1,80 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <!--Import Google Icon Font (Material Icons)-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
-    <!-- Compiled and minified Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-
-    <!-- link to css stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!--website optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>My Farmer's Market</title>
+  <!--Import Google Icon Font (Material Icons)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <!-- Compiled and minified Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+  <!-- link to css stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!--website optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Farmer's Market</title>
 </head>
-
 <body>
+  <!-- fixed navigation bar -->
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper green darken-2">
+        <a href="#!" class="brand-logo">My Farmer's Market</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <!-- hides menu on medium devices and smaller -->
+        <ul class="section table-of-contents right hide-on-med-and-down">
+          <li><a href="#zipSearch">Find A Market</a></li>
+          <li><a href="#mapResults-go-here">Results</a></li>
+          <li><a href="#about">About</a></li>
+      </ul>
+      <ul class="side-nav section table-of-contents" id="mobile-demo">
+        <li><a href="#zipSearch">Find A Market</a></li>
+        <li><a href="#mapResults-go-here">Results</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+      </div>
+    </nav>
+  </div>
 
-    <!-- fixed navigation bar -->
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper green darken-2">
-                <a href="#!" class="brand-logo">My Farmer's Market</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <!-- hides menu on medium devices and smaller -->
-                <ul class="section table-of-contents right hide-on-med-and-down">
-                    <li><a href="#zipSearch">Find A Market</a></li>
-                    <li><a href="#mapResults-go-here">Results</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-                <ul class="side-nav section table-of-contents" id="mobile-demo">
-                    <li><a href="#zipSearch">Find A Market</a></li>
-                    <li><a href="#mapResults-go-here">Results</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-            </div>
-        </nav>
+  <!-- space filler below navbar  -->
+  <div style="height:25px"></div>
+
+  <div class="container center-align">
+    <!-- ZIP code search bar -->
+    <div class="card green darken-1 z-depth-4">
+      <div class="row">
+        <form class="col s6">
+          <div class="input-field col s4">
+            <input id="zipSearch" type="text" class="validate section scrollspy">
+            <label for="zipSearch">ZIP Code <i class="material-icons hide-on-small-only">pageview</i></label>
+            <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <!-- space filler below navbar  -->
-    <div style="height:25px"></div>
-
-    <div class="container center-align">
-        <!-- ZIP code search bar -->
+    <!-- Current foods in season -->
+    <div class="row">
+      <div class="col s12 m6">
         <div class="card green darken-1 z-depth-4">
-            <div class="row">
-                <form class="col s6">
-                        <div class="input-field col s4">
-                            <input id="zipSearch" type="text" class="validate section scrollspy">
-                            <label for="zipSearch">ZIP Code <i class="material-icons hide-on-small-only">pageview</i></label>
-                            <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-            <!-- Current foods in season -->
-            <div class="row">
-                <div class="col s12 m6">
-                    <div class="card green darken-1 z-depth-4">
-                        <div class="card-content white-text" id="foodsInSeason">
-                            <span id="current-month" class="card-title">Foods In Season for </span>
-                            <table class="responsive-table striped" id="foodTable">
-                                <tbody>
-                                    <!-- table of foods dynamically added here -->
-                            </tbody>
-                            </table>
-                        </div>
-                    <div class="card-action">
-                        <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
-                     </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="col s6" id="foodsInSeason">
-              <h5 id="current-month" class="flow-text">Foods In Season for the month of </h5>  
+          <div class="card-content white-text" id="foodsInSeason">
+            <span id="current-month" class="card-title">Foods In Season for</span>
               <table class="responsive-table striped" id="foodTable">
                 <tbody>
-                  table of foods dynamically added here
+                <!-- table of foods dynamically added here -->
                 </tbody>
               </table>
-            </div> -->
+          </div>
+          <div class="card-action">
+            <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
+          </div>
         </div>
+      </div>
     </div>
-
-    <div class="row section scrollspy" id="mapResults-go-here"></div>
-
-    <!-- accordion results from ajax call display here  -->
-    <div class="row" id="ajaxResults"></div>
-
-    <!-- Modal Structure -->
+  </div>
+  <div class="row section scrollspy" id="mapResults-go-here"></div>
+  <!-- accordion results from ajax call display here  -->
+  <div class="row" id="ajaxResults"></div>
+  <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Leave a Comment About this Market</h4>
-
       <div class="row">
         <form class="col s12">
           <div class="row modal-form-row">
@@ -112,12 +92,10 @@
       </button>
     </div>
   </div>
-
-     <!-- Modal Structure -->
+   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Leave a Comment About this Market</h4>
-
       <div class="row">
         <form class="col s12">
           <div class="row modal-form-row">
@@ -135,86 +113,90 @@
       </button>
     </div>
   </div>
+  <div style="height:750px"></div>
+  <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Rate Your Farmer's Market Experience</h4>
 
-    <div style="height:750px"></div>
-
-    <!-- Modal Structure -->
-      <div id="modal1" class="modal">
-        <div class="modal-content">
-          <h4>Rate Your Farmer's Market Experience</h4>
-
-          <div class="row">
-            <form class="col s12">
-              <div class="row modal-form-row">
-                <div class="input-field col s12">
-                  <input id="comment" type="text" class="validate">
-                  <label for="image_url">Comment</label>
-                </div>
-                <div id="starRatings">
-                  <i data-min="0" data-max="5" data-value="1" id="star1" class="material-icons"/>star_border</i>
-                  <i data-min="0" data-max="5" data-value="2" id="star2" class="material-icons"/>star_border</i>
-                  <i data-min="0" data-max="5" data-value="3" id="star3" class="material-icons"/>star_border</i>
-                  <i data-min="0" data-max="5" data-value="4" id="star4" class="material-icons"/>star_border</i>
-                  <i data-min="0" data-max="5" data-value="5" id="star5" class="material-icons"/>star_border</i>
-                </div>
-                <button class="modal-action modal-close btn waves-effect waves-light">Submit
-                  <i class="material-icons right">send</i>
-                </button>
+        <div class="row">
+          <form class="col s12">
+            <div class="row modal-form-row">
+              <div class="input-field col s12">
+                <input id="comment" type="text" class="validate">
+                <label for="image_url">Comment</label>
               </div>
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <!--Rate and Review Panel-->
-          <div class="panel-body">
-            
-          </div>
-          
+              <div id="starRatings">
+                <i data-min="0" data-max="5" data-value="1" id="star1" class="material-icons"/>star_border</i>
+                <i data-min="0" data-max="5" data-value="2" id="star2" class="material-icons"/>star_border</i>
+                <i data-min="0" data-max="5" data-value="3" id="star3" class="material-icons"/>star_border</i>
+                <i data-min="0" data-max="5" data-value="4" id="star4" class="material-icons"/>star_border</i>
+                <i data-min="0" data-max="5" data-value="5" id="star5" class="material-icons"/>star_border</i>
+              </div>
+              <button class="modal-action modal-close btn waves-effect waves-light">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    <footer class="page-footer green darken-2">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">My Farmer's Market</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Connect</h5>
-                    <ul>
-                        <li><a class="github-button" href="https://github.com/DizDonut/FarmersMarket" data-show-count="true" aria-label="Star DizDonut/FarmersMarket on GitHub">Star</a></li>
-                        <li><span class="white-text">Contributors:</span></li>
-                        <li><a class="github-button" href="https://github.com/DizDonut" aria-label="Follow @DizDonut on GitHub">Follow @DizDonut</a></li>
-                        <li><a class="github-button" href="https://github.com/JimGray9999" aria-label="Follow @JimGray9999 on GitHub">Follow @JimGray9999</a></li>
-                        <li><a class="github-button" href="https://github.com/RaidoFive" aria-label="Follow @RaidoFive on GitHub">Follow @RaidoFive</a></li>
-                        <li><a class="github-button" href="https://github.com/papergrapefruit" aria-label="Follow @papergrapefruit on GitHub">Follow @papergrapefruit</a></li>
-                    </ul>
-                </div>
-            </div>
+      <div class="modal-footer">
+        <!--Rate and Review Panel-->
+        <div class="panel-body">
+
         </div>
-        <div class="footer-copyright">
-            <div id="about" class="container section scrollspy">
-                © 2017
-            </div>
-        </div>
-    </footer>
 
-    <!-- scripts -->
-        <!-- Minified jQuery -->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      </div>
+    </div>
+  <footer class="page-footer green darken-2">
+      <div class="container">
+          <div class="row">
+              <div class="col l6 s12">
+                  <h5 class="white-text">My Farmer's Market</h5>
+                  <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                  <h5 class="white-text">Connect</h5>
+                  <ul>
+                      <li><a class="github-button" href="https://github.com/DizDonut/FarmersMarket" data-show-count="true" aria-label="Star DizDonut/FarmersMarket on GitHub">Star</a></li>
+                      <li><span class="white-text">Contributors:</span></li>
+                      <li><a class="github-button" href="https://github.com/DizDonut" aria-label="Follow @DizDonut on GitHub">Follow @DizDonut</a></li>
+                      <li><a class="github-button" href="https://github.com/JimGray9999" aria-label="Follow @JimGray9999 on GitHub">Follow @JimGray9999</a></li>
+                      <li><a class="github-button" href="https://github.com/RaidoFive" aria-label="Follow @RaidoFive on GitHub">Follow @RaidoFive</a></li>
+                      <li><a class="github-button" href="https://github.com/papergrapefruit" aria-label="Follow @papergrapefruit on GitHub">Follow @papergrapefruit</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="footer-copyright">
+          <div id="about" class="container section scrollspy">
+              © 2017
+          </div>
+      </div>
+  </footer>
 
-        <!-- Compiled and minified Materialize JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+<!-- scripts -->
 
-        <!-- Moment.js  -->
-        <script type="text/javascript" src="assets/javascript/moment.js"></script>
+<!-- Firebase  -->
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 
-        <!-- Github:buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Minified jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
-        <!-- App.js file for primary app logic -->
-        <script type="text/javascript" src="assets/javascript/app.js"></script>
-    <!-- end scripts -->
+<!-- Compiled and minified Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+<!-- Moment.js  -->
+<script type="text/javascript" src="assets/javascript/moment.js"></script>
+
+<!-- Github:buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- App.js file for primary app logic -->
+<script type="text/javascript" src="assets/javascript/app.js"></script>
+
+<!-- end scripts -->
+
 </body>
 
 </html>
