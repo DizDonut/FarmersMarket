@@ -19,7 +19,6 @@
 
 <body>
 
-    <!-- TODO: Jim - add scrollspy feature -->
     <!-- fixed navigation bar -->
     <div class="navbar-fixed">
         <nav>
@@ -29,12 +28,12 @@
                 <!-- hides menu on medium devices and smaller -->
                 <ul class="section table-of-contents right hide-on-med-and-down">
                     <li><a href="#zipSearch">Find A Market</a></li>
-                    <li><a href="#foodsInSeason">Foods In Season</a></li>
+                    <li><a href="#mapResults-go-here">Results</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
                 <ul class="side-nav section table-of-contents" id="mobile-demo">
                     <li><a href="#zipSearch">Find A Market</a></li>
-                    <li><a href="#foodsInSeason">Foods In Season</a></li>
+                    <li><a href="#mapResults-go-here">Results</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
             </div>
@@ -44,35 +43,31 @@
     <!-- space filler below navbar  -->
     <div style="height:25px"></div>
 
-    <!-- ZIP code search bar -->
-    <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s2 left">
-                    <input id="zipSearch" type="text" class="validate section scrollspy">
-                    <label for="zipSearch">ZIP Code <i class="material-icons hide-on-small-only">pageview</i></label>
-                    <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
+    <div class="container center-align">
+        <!-- ZIP code search bar -->
+        <div class="row">
+            <form class="col s6">
+                <div class="row">
+                    <div class="input-field col s2">
+                        <input id="zipSearch" type="text" class="validate section scrollspy">
+                        <label for="zipSearch">ZIP Code <i class="material-icons hide-on-small-only">pageview</i></label>
+                        <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
+                    </div>
                 </div>
+            </form>
+            <!-- Current foods in season -->
+            <div class="col s6" id="foodsInSeason">
+              <h5 id="current-month" class="flow-text">Foods In Season for the month of </h5>  
+              <table class="responsive-table striped" id="foodTable">
+                <tbody>
+                  <!-- table of foods dynamically added here -->
+                </tbody>
+              </table>
             </div>
-        </form>
+        </div>
     </div>
 
-
-
-    <div class="row" id="mapResults-go-here"></div>
-
-    <!-- Current foods in season -->
-    <div class="row section scrollspy" id="foodsInSeason">
-      <h5 id="current-month" class="flow-text">Foods In Season for the month of </h5>  
-      <table class="responsive-table striped" id="foodTable">
-        <tbody>
-        <tr>
-          <td id="food"></td>
-        </tr>
-          <!-- table of foods dynamically added here -->
-        </tbody>
-      </table>
-    </div>
+    <div class="row section scrollspy" id="mapResults-go-here"></div>
 
     <!-- accordion results from ajax call display here  -->
     <div class="row" id="ajaxResults"></div>
