@@ -43,34 +43,32 @@
     <!-- space filler below navbar  -->
     <div style="height:25px"></div>
 
-    <div class="container center-align">
-        <!-- ZIP code search bar -->
-        <div class="card green darken-1 z-depth-4">
-            <div class="row">
-                <form class="col s6">
-                        <div class="input-field col s4">
-                            <input id="zipSearch" type="text" class="validate section scrollspy">
-                            <label for="zipSearch">ZIP Code <i class="material-icons hide-on-small-only">pageview</i></label>
-                            <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
+    <div class="container">   
+        <div class="row">
+            <!-- ZIP code search bar -->
+            <div class="col s3 m6">
+                <div class="card green darken-1 z-depth-4">
+                    <div class="card-content white-text">
+                        <span class="card-title"><i class="material-icons hide-on-small-only prefix">pageview</i>ZIP Code Search</span>
+                        <input id="zipSearch" type="text" class="validate section scrollspy">
+                        <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+
             <!-- Current foods in season -->
-            <div class="row">
-                <div class="col s12 m6">
-                    <div class="card green darken-1 z-depth-4">
-                        <div class="card-content white-text" id="foodsInSeason">
-                            <span id="current-month" class="card-title">Foods In Season for </span>
-                            <table class="responsive-table striped" id="foodTable">
-                                <tbody>
-                                    <!-- table of foods dynamically added here -->
-                            </tbody>
-                            </table>
-                        </div>
+            <div class="col s9 m6">
+                <div class="card green darken-1 z-depth-4">
+                    <div class="card-content white-text" id="foodsInSeason">
+                        <span id="current-month" class="card-title">Foods In Season for </span>
+                        <table class="responsive-table" id="foodTable">
+                            <tbody>
+                                <!-- table of foods dynamically added here -->
+                        </tbody>
+                        </table>
+                    </div>
                     <div class="card-action">
                         <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
-                     </div>
                     </div>
                 </div>
             </div>
