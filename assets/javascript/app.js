@@ -30,6 +30,7 @@ $(document).ready(function() {
       })//end accordion click event
 
       $(document).on("click", ".modal-trigger", function(event){
+        event.preventDefault();
         $(".modal-trigger").leanModal();
       })
 
