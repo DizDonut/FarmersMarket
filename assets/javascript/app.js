@@ -4,6 +4,7 @@ $(document).ready(function() {
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
         $(".button-collapse").sideNav();
+        $(".modal").modal();
 
         $(document).on("click", "#submit", function(event) {
             event.preventDefault();
@@ -30,8 +31,13 @@ $(document).ready(function() {
         ourFunctions.createComments();
         var marketId = $(this).attr("id");
         ourFunctions.getSecondResults(marketId);
-        
+
       })//end accordion click event
+
+      $(document).on("click", ".modal-trigger", function(event){
+        event.preventDefault();
+        $(".modal-trigger").leanModal();
+      })
 
 /*
   object to hold the functions
@@ -182,7 +188,8 @@ var ourFunctions = {
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
       $(".collapsible-body").html(commentModal);
-    }
+
+    } //end createComments function
 
   }//end function object
 
