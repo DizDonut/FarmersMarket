@@ -27,7 +27,6 @@ $(document).ready(function() {
         
       })//end accordion click event
 
-    
 /*
   object to hold the functions
 */
@@ -94,7 +93,7 @@ var ourFunctions = {
         id = results[i].id;
         name = results[i].marketname;
 
-        var popoutHeader = "<div id='" + id + "'class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
+        var popoutHeader = "<div id='" + id + "' class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
         var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
         var listItem = "<li>";
 
@@ -176,7 +175,6 @@ var ourFunctions = {
 
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
-
       $(".collapsible-body").html(commentModal);
     }
 
