@@ -4,6 +4,7 @@ $(document).ready(function() {
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
         $(".button-collapse").sideNav();
+        $(".modal").modal();
 
 
         $(document).on("click", "#submit", function(event) {
@@ -25,8 +26,12 @@ $(document).ready(function() {
         ourFunctions.createComments();
         var marketId = $(this).attr("id");
         ourFunctions.getSecondResults(marketId);
-        
+
       })//end accordion click event
+
+      $(document).on("click", ".modal-trigger", function(event){
+        $(".modal-trigger").leanModal();
+      })
 
 /*
   object to hold the functions
@@ -136,51 +141,51 @@ var ourFunctions = {
   },
 
 //on load: display foods in season based on current month in the DOM
-        foodsInSeason: function () {
-            // (moment.js for current month)
-            var currentMonth = moment().month();
-            var currentMonthText = moment().format('MMMM');
-            console.log("Current Month: " + currentMonth);
-            $("#current-month").text("Foods in season for the month of " + currentMonthText);
+  foodsInSeason: function () {
+    // (moment.js for current month)
+    var currentMonth = moment().month();
+    var currentMonthText = moment().format('MMMM');
+    console.log("Current Month: " + currentMonth);
+    $("#current-month").text("Foods in season for the month of " + currentMonthText);
 
-            // JSON data obtained via web crawler Apifier API:
-            // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
-            var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
+    // JSON data obtained via web crawler Apifier API:
+    // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
+    var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
 
-            $.ajax({
-              type: "GET",
-              contentType: "application/json",
-              url: foodsDataURL
-            })
-            .done(function(response){
-              var foodString = response[currentMonth].pageFunctionResult.foods;
-              
-              // remove all /n from foodString, then remove blank items
-              foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
-              var foodArray = foodString.split(',');
+    $.ajax({
+      type: "GET",
+      contentType: "application/json",
+      url: foodsDataURL
+    })
+    .done(function(response){
+      var foodString = response[currentMonth].pageFunctionResult.foods;
 
-              // remove blank items in array
-              for(var i = foodArray.length-1; i >= 0; i--){  
-                  if(foodArray[i] === ''){           
-                      foodArray.splice(i,1);               
-                  }
+      // remove all /n from foodString, then remove blank items
+      foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
+      var foodArray = foodString.split(',');
+
+      // remove blank items in array
+      for(var i = foodArray.length-1; i >= 0; i--){
+          if(foodArray[i] === ''){
+              foodArray.splice(i,1);
               }
           }
-          console.log(foodArray);
+      console.log(foodArray);
 
-          $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
-          
-              for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
-                $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
-                + foodArray[i+3] + "</td></tr>");
-              }
-            });
-        }, // end foodsInSeason() function
+      $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
+
+          for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
+            $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
+            + foodArray[i+3] + "</td></tr>");
+          }
+      });
+    }, // end foodsInSeason() function
 
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
       $(".collapsible-body").html(commentModal);
-    }
+
+    } //end createComments function
 
   }//end function object
 
