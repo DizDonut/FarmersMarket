@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
+
         // jQuery functions so certain classes work on dynamic created elements
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
         $(".button-collapse").sideNav();
+        $(".modal").modal();
 
 
         $(document).on("click", "#submit", function(event) {
@@ -19,7 +21,7 @@ $(document).ready(function() {
             ourFunctions.getFirstResults(zipCode);
 
         }); //end submit on click event
-
+      //onclick event to post results of second API to HTML.  Second API call starts on line 120.
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
         ourFunctions.createComments();
@@ -28,7 +30,10 @@ $(document).ready(function() {
         
       })//end accordion click event
 
-    
+      $(document).on("click", ".modal-trigger", function(event) {
+        event.preventDefault();
+        $(".modal-trigger").leanModal();
+      })
 /*
   object to hold the functions
 */
@@ -128,10 +133,16 @@ var ourFunctions = {
   }).done(function(detailresults){
     console.log(detailresults)
     for (var key in detailresults) {
+      /*variables to hold results of second usda API call.  Results printed to HTML in onclick event
+        starting on line 23*/
         var address = detailresults.marketdetails.Address;
         var linky = detailresults.marketdetails.GoogleLink;
-        console.log(address);
-        console.log(linky);
+        var schedule = detailresults.marketdetails.Schedule;
+        var products = detailresults.marketdetails.Products;
+        $(".collapsible-body").html("<a href= " + linky + ">Google Link</a>" 
+                                  + "<p>" + address + "</p>"
+                                  + "<p>" + schedule + "</p>"
+                                  + "<p>" + products + "</p>");
       }; //end for loop
     }); //end ajax call
   },
@@ -179,7 +190,7 @@ var ourFunctions = {
 
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
-      $(".collapsible-body").append(commentModal);
+      $(".collapsible-body").html(commentModal);
     }
 
   }//end function object
