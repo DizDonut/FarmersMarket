@@ -23,17 +23,20 @@ $(document).ready(function() {
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
         ourFunctions.createComments();
+        var marketId = $(this).attr("id");
+        ourFunctions.getSecondResults(marketId);
+
       })//end accordion click event
 
 
-        // allows for hamburger menu collapse to work
-        $(".button-collapse").sideNav();
+      // allows for hamburger menu collapse to work
+      $(".button-collapse").sideNav();
 
-      
-  
-  
+
+
+
   //TODO: Jim - scrape website for foods in season data
-  ourfunctions.foodsInSeason(); // run function on load
+  // ourFunctions.foodsInSeason(); // run function on load
 
 /*
   object to hold the functions
@@ -101,8 +104,8 @@ var ourFunctions = {
         id = results[i].id;
         name = results[i].marketname;
 
-        var popoutHeader = "<div class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
-        var popoutBody = "<div id='" + id + "' class='collapsible-body'><span>Lorem Ipsum</span></div>";
+        var popoutHeader = "<div id='" + id + "' class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
+        var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
         var listItem = "<li>";
 
         // append each returned result as a list item to the DOM
@@ -110,7 +113,7 @@ var ourFunctions = {
         $("#ajaxResults").append(popoutList);
       } //end for loop for dynamic collapse elements
 
-      ourFunctions.scrapeFoodsInSeason();
+      // ourFunctions.scrapeFoodsInSeason();
 
     }); //end ajax call
   },
@@ -140,55 +143,55 @@ var ourFunctions = {
     }); //end ajax call
   },
 
-//on load: display foods in season based on current month in the DOM
-        foodsInSeason: function () {
-            // (moment.js for current month)
-            var currentMonth = moment().month();
-            var currentMonthText = moment().format('MMMM');
-            console.log("Current Month: " + currentMonth);
-            $("#current-month").text("Foods in season for the month of " + currentMonthText);
+    //on load: display foods in season based on current month in the DOM
+  foodsInSeason: function () {
+        // (moment.js for current month)
+        var currentMonth = moment().month();
+        var currentMonthText = moment().format('MMMM');
+        console.log("Current Month: " + currentMonth);
+        $("#current-month").text("Foods in season for the month of " + currentMonthText);
 
-            // JSON data obtained via web crawler Apifier API:
-            // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
-            var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
+        // JSON data obtained via web crawler Apifier API:
+        // https://www.apifier.com/crawlers/DpP4r2ouwftwZT5Ym
+        var foodsDataURL = "https://api.apifier.com/v1/execs/vm5CwJ6Rr6ePdugwK/results";
 
-            $.ajax({
-              type: "GET",
-              contentType: "application/json",
-              url: foodsDataURL
-            })
-            .done(function(response){
-              console.log(response[currentMonth].pageFunctionResult.foods);
-              // use JSON data to display foods for current month
+        $.ajax({
+          type: "GET",
+          contentType: "application/json",
+          url: foodsDataURL
+        })
+        .done(function(response){
+          console.log(response[currentMonth].pageFunctionResult.foods);
+          // use JSON data to display foods for current month
 
-              var foodString = response[currentMonth].pageFunctionResult.foods;
-              
-              // remove all /n from foodString, then remove blank items
-              foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
+          var foodString = response[currentMonth].pageFunctionResult.foods;
 
-              var foodArray = foodString.split(',');
+          // remove all /n from foodString, then remove blank items
+          foodString = foodString.replace(/(\r\n|\n|\r)/gm,',').trim();
 
-              // remove blank items in array
-              for(var i = foodArray.length-1; i >= 0; i--){  
-                  if(foodArray[i] == ''){           
-                      foodArray.splice(i,1);               
-                  }
+          var foodArray = foodString.split(',');
+
+          // remove blank items in array
+          for(var i = foodArray.length-1; i >= 0; i--){
+              if(foodArray[i] == ''){
+                  foodArray.splice(i,1);
               }
-              console.log(foodArray);
+          }
+          console.log(foodArray);
 
-              $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
+          $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
 
-              for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
-                $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
-                + foodArray[i+3] + "</td></tr>");
-              }
-            });
+          for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
+            $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
+            + foodArray[i+3] + "</td></tr>");
+          }
+        });
 
-        }, // end foodsInSeason() function
+    }, // end foodsInSeason() function
 
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
-      $(".collapsible-body").append(commentModal);
+      $(".collapsible-body").html(commentModal);
     }
 
   }//end function object
