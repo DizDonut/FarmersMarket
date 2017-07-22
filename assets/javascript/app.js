@@ -4,6 +4,29 @@ $(document).ready(function() {
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
         $(".button-collapse").sideNav();
+        $("#modal1").modal();
+
+        // update star ratings inside comment modal
+        $("#starRatings > i").on("click", function(){
+          
+          $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
+
+          $(this).html("<i class='material-icons'/>star</i>");
+          
+          var rating = $(this).attr("data-value");
+          console.log(rating);
+
+          // data-values less than "this", also changed to star
+          // for (i = rating ; i > 0 ; i--) {
+          //   if (rating < $("#star" + i).attr("data-value")){
+          //     console.log("it is ");
+          //     $("#star" + i).html("<i class='material-icons'/>star_border</i>");
+          //   } else {
+          //     $("#star" + i).html("<i class='material-icons'/>star</i>");
+          //   }
+          // } 
+
+        });
 
         $(document).on("click", "#submit", function(event) {
             event.preventDefault();
@@ -18,13 +41,9 @@ $(document).ready(function() {
             ourFunctions.getFirstResults(zipCode);
 
         }); //end submit on click event
-
-      $(".modal").modal();
-
-      $(document).on("click", ".modal-trigger", function(event){
-        $(".modal-trigger").leanModal();
-      })
       
+
+
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
         ourFunctions.createComments();
