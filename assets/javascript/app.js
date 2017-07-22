@@ -10,25 +10,29 @@ $(document).ready(function() {
       messagingSenderId: "74005566748"
     };
     firebase.initializeApp(config);
-    <!-- Creating a variable to reference the database -->
+
+    // Creating a variable to reference the database
     var database = firebase.database();
         // Initial Values
         var zipCode = "";
         var rating = "";
+        var comments = "";
+        var marketId = "";
+        var lastComment = "Be the first to comment!";
+
         // jQuery functions so certain classes work on dynamic created elements
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
         $(".button-collapse").sideNav();
         $("#modal1").modal();
+
         // update star ratings inside comment modal
         $("#starRatings > i").on("click", function(){
         $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
         $(this).html("<i class='material-icons'/>star</i>");
-        var rating = $(this).attr("data-value");
+        rating = $(this).attr("data-value");
         console.log(rating);
-        database.ref().set({
-          rating: rating
-        });
+        
           // data-values less than "this", also changed to star
           for (i = rating ; i > 0 ; i--) {
             if (rating < $("#star" + i).attr("data-value")){
@@ -45,26 +49,47 @@ $(document).ready(function() {
         $(document).on("click", "#submit", function(event) {
             event.preventDefault();
             //retrieve input from user
-            var zipCode = $("#zipSearch").val().trim();
+            zipCode = $("#zipSearch").val().trim();
             $("#zipSearch").html("").val("");
             //call initMap function, passing the zipCode variable as an argument
             var map = ourFunctions.initMap(zipCode);
             //call renderResults function, passing the map variable as an argument
             ourFunctions.renderResults(map);
             ourFunctions.getFirstResults(zipCode);
-            database.ref().set({
-              zipCode: zipCode
-            });
-
         }); //end submit on click event
 
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
-        var marketId = $(this).attr("id");
+        marketId = $(this).attr("id");
         ourFunctions.getSecondResults(marketId);
 
       })//end accordion click event
 
+      $(document).on("click", "#commentSubmit", function(event) {
+        event.preventDefault();
+
+        comments = $("#comment").val().trim();
+
+        var newReview = database.ref().push();
+
+        newReview.set({
+          marketId: marketId,
+          rating: rating,
+          comments: comments,
+          zipCode: zipCode
+        });
+
+        // 2500 is the duration of the toast
+        Materialize.toast('Thanks for submitting your review!', 2500) 
+      });
+
+      database.ref().on("value", function(snapshot){
+        console.log(snapshot.val().marketId);
+        console.log(snapshot.val().rating);
+        console.log(snapshot.val().comments);
+        console.log(snapshot.val().zipCode);
+      }), function(errorObject) {
+      console.log("Errors handled: " + errorObject.code)};
 /*
   object to hold the functions
 */
@@ -170,10 +195,14 @@ var ourFunctions = {
         var linky = detailresults.marketdetails.GoogleLink;
         var schedule = detailresults.marketdetails.Schedule;
         var products = detailresults.marketdetails.Products;
+        
+        //TODO: Jim/Stacy - query firebase to check if a comment exists for marketID (argID)
+
         $(".collapsible-body").html("<a target='_blank' href= " + linky + ">Google Link</a>"
-                                  + "<p>" + address + "</p>"
-                                  + "<p>" + schedule + "</p>"
-                                  + "<p>" + products + "</p>"
+                                  + "<p> Address: " + address + "</p>"
+                                  + "<p> Schedule: " + schedule + "</p>"
+                                  + "<p> Products: " + products + "</p>"
+                                  + "<p> Most Recent Comment: " + lastComment + "</p>"
                                   + "<p>" + commentModal + "</p>");
 
       }; //end for loop
@@ -225,17 +254,5 @@ var ourFunctions = {
   }//end function object
 
   ourFunctions.foodsInSeason(); // show foods in season on document load
-  // Firebase watcher + initial loader : .on("value")
-    database.ref().on("value", function(snapshot)
-    {
-      // Log everything that's coming out of snapshot
-      console.log(snapshot.val());
-      console.log(snapshot.val().zipCode);
-      console.log(snapshot.val().rating);
-});
- }, function(errorObject) {
-  console.log("Errors handled: " + errorObject.code);
-
-
 
 }) //end document ready
