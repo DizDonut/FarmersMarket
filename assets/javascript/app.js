@@ -19,6 +19,12 @@ $(document).ready(function() {
 
         }); //end submit on click event
 
+      $(".modal").modal();
+
+      $(document).on("click", ".modal-trigger", function(event){
+        $(".modal-trigger").leanModal();
+      })
+      
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
         ourFunctions.createComments();
