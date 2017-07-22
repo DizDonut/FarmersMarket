@@ -1,22 +1,34 @@
 $(document).ready(function() {
 
-
+  // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDm6wfYiroeycCdVHwK2tkV572AEQ1UJJw",
+      authDomain: "farmersmarket-f2d0f.firebaseapp.com",
+      databaseURL: "https://farmersmarket-f2d0f.firebaseio.com",
+      projectId: "farmersmarket-f2d0f",
+      storageBucket: "farmersmarket-f2d0f.appspot.com",
+      messagingSenderId: "74005566748"
+    };
+    firebase.initializeApp(config);
+    <!-- Creating a variable to reference the database -->
+    var database = firebase.database();
+        // Initial Values
+        var zipCode = "";
+        var rating = "";
         // jQuery functions so certain classes work on dynamic created elements
         $('.collapsible').collapsible();
         $('.scrollspy').scrollSpy();
         $(".button-collapse").sideNav();
         $("#modal1").modal();
-
         // update star ratings inside comment modal
         $("#starRatings > i").on("click", function(){
-          
-          $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
-
-          $(this).html("<i class='material-icons'/>star</i>");
-          
-          var rating = $(this).attr("data-value");
-          console.log(rating);
-
+        $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
+        $(this).html("<i class='material-icons'/>star</i>");
+        var rating = $(this).attr("data-value");
+        console.log(rating);
+        database.ref().set({
+          rating: rating
+        });
           // data-values less than "this", also changed to star
           for (i = rating ; i > 0 ; i--) {
             if (rating < $("#star" + i).attr("data-value")){
@@ -32,7 +44,6 @@ $(document).ready(function() {
 
         $(document).on("click", "#submit", function(event) {
             event.preventDefault();
-
             //retrieve input from user
             var zipCode = $("#zipSearch").val().trim();
             $("#zipSearch").html("").val("");
@@ -41,11 +52,11 @@ $(document).ready(function() {
             //call renderResults function, passing the map variable as an argument
             ourFunctions.renderResults(map);
             ourFunctions.getFirstResults(zipCode);
+            database.ref().set({
+              zipCode: zipCode
+            });
 
         }); //end submit on click event
-      
-
-
 
       $(document).on("click", ".collapsible-header", function(event){
         event.preventDefault();
@@ -53,7 +64,6 @@ $(document).ready(function() {
         ourFunctions.getSecondResults(marketId);
 
       })//end accordion click event
-
 
 /*
   object to hold the functions
@@ -215,5 +225,17 @@ var ourFunctions = {
   }//end function object
 
   ourFunctions.foodsInSeason(); // show foods in season on document load
+  // Firebase watcher + initial loader : .on("value")
+    database.ref().on("value", function(snapshot)
+    {
+      // Log everything that's coming out of snapshot
+      console.log(snapshot.val());
+      console.log(snapshot.val().zipCode);
+      console.log(snapshot.val().rating);
+});
+ }, function(errorObject) {
+  console.log("Errors handled: " + errorObject.code);
+
+
 
 }) //end document ready
