@@ -49,21 +49,25 @@
         </form>
       </div>
     </div>
-    <!-- Current foods in season -->
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="card green darken-1 z-depth-4">
-          <div class="card-content white-text" id="foodsInSeason">
-            <span id="current-month" class="card-title">Foods In Season for</span>
-              <table class="responsive-table striped" id="foodTable">
-                <tbody>
-                <!-- table of foods dynamically added here -->
-                </tbody>
-              </table>
-          </div>
-          <div class="card-action">
-            <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
-          </div>
+            <!-- Current foods in season -->
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card green darken-1 z-depth-4">
+                        <div class="card-content white-text" id="foodsInSeason">
+                            <span id="current-month" class="card-title">Foods In Season for </span>
+                            <table class="responsive-table striped" id="foodTable">
+                                <tbody>
+                                    <!-- table of foods dynamically added here -->
+                            </tbody>
+                            </table>
+                        </div>
+                    <div class="card-action">
+                        <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
+                     </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
       </div>
     </div>
@@ -145,6 +149,17 @@
         <div class="panel-body">
 
         </div>
+    <div class="row section scrollspy" id="mapResults-go-here"></div>
+
+    <!-- accordion results from ajax call display here  -->
+    <div class="row" id="ajaxResults"></div>
+
+    <div style="height:750px"></div>
+
+    <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Rate Your Farmer's Market Experience</h4>
 
       </div>
     </div>
@@ -169,34 +184,24 @@
           </div>
       </div>
       <div class="footer-copyright">
-          <div id="about" class="container section scrollspy">
+        <div id="about" class="container section scrollspy">
               © 2017
-          </div>
-      </div>
-  </footer>
-
+        </div>
+    </div>
+</footer>
 <!-- scripts -->
-
 <!-- Firebase  -->
 <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-
 <!-- Minified jQuery -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
 <!-- Compiled and minified Materialize JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
-
 <!-- Moment.js  -->
 <script type="text/javascript" src="assets/javascript/moment.js"></script>
-
 <!-- Github:buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-
 <!-- App.js file for primary app logic -->
 <script type="text/javascript" src="assets/javascript/app.js"></script>
-
 <!-- end scripts -->
-
 </body>
-
 </html>

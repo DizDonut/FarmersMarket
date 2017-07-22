@@ -30,14 +30,15 @@ $(document).ready(function() {
           rating: rating
         });
           // data-values less than "this", also changed to star
-          // for (i = rating ; i > 0 ; i--) {
-          //   if (rating < $("#star" + i).attr("data-value")){
-          //     console.log("it is ");
-          //     $("#star" + i).html("<i class='material-icons'/>star_border</i>");
-          //   } else {
-          //     $("#star" + i).html("<i class='material-icons'/>star</i>");
-          //   }
-          // }
+          for (i = rating ; i > 0 ; i--) {
+            if (rating < $("#star" + i).attr("data-value")){
+              console.log("it is less");
+              $("#star" + i).html("<i class='material-icons'/>star_border</i>");
+            } else {
+              $("#star" + i).html("<i class='material-icons'/>star</i>");
+              console.log("it is more");
+            }
+          } 
 
         });
 
@@ -63,8 +64,6 @@ $(document).ready(function() {
         ourFunctions.getSecondResults(marketId);
 
       })//end accordion click event
-
-
 
 /*
   object to hold the functions
