@@ -28,7 +28,6 @@ $(document).ready(function() {
         
       })//end accordion click event
 
-    
 /*
   object to hold the functions
 */
@@ -95,7 +94,7 @@ var ourFunctions = {
         id = results[i].id;
         name = results[i].marketname;
 
-        var popoutHeader = "<div id='" + id + "'class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
+        var popoutHeader = "<div id='" + id + "' class='collapsible-header'><i class='material-icons'>favorite_border</i>" + name + "</div>";
         var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
         var listItem = "<li>";
 
@@ -104,7 +103,7 @@ var ourFunctions = {
         $("#ajaxResults").append(popoutList);
       } //end for loop for dynamic collapse elements
 
-      ourFunctions.scrapeFoodsInSeason();
+      // ourFunctions.scrapeFoodsInSeason();
 
     }); //end ajax call
   },
@@ -166,10 +165,11 @@ var ourFunctions = {
                       foodArray.splice(i,1);               
                   }
               }
-              console.log(foodArray);
+          }
+          console.log(foodArray);
 
-              $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
-
+          $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
+          
               for (i = -1 ; i < (foodArray.length - 3) ; i+=2){
                 $("#foodTable > tbody").append("<tr><td>" + foodArray[i + 2] + "</td><td>"
                 + foodArray[i+3] + "</td></tr>");
@@ -179,7 +179,7 @@ var ourFunctions = {
 
     createComments: function(){
       var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
-      $(".collapsible-body").append(commentModal);
+      $(".collapsible-body").html(commentModal);
     }
 
   }//end function object
