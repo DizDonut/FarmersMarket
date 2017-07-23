@@ -11,9 +11,8 @@ html{
 	opacity: 0.85;
 }
 
-#mapResults-go-here{
+#mapResults-go-here, #current-month, .card-title{
   text-align: center;
-  border-radius: 2px;
 }
 
 .table-of-contents a{
