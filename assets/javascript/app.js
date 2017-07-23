@@ -32,7 +32,7 @@ $(document).ready(function() {
         $(this).html("<i class='material-icons'/>star</i>");
         rating = $(this).attr("data-value");
         console.log(rating);
-        
+
           // data-values less than "this", also changed to star
           for (i = rating ; i > 0 ; i--) {
             if (rating < $("#star" + i).attr("data-value")){
@@ -42,7 +42,7 @@ $(document).ready(function() {
               $("#star" + i).html("<i class='material-icons'/>star</i>");
               console.log("it is more");
             }
-          } 
+          }
 
         });
 
@@ -79,8 +79,13 @@ $(document).ready(function() {
           zipCode: zipCode
         });
 
+// clearing comment form inputs 
+$( "#comment" ).html("").val("");
+$("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
+
+
         // 2500 is the duration of the toast
-        Materialize.toast('Thanks for submitting your review!', 2500) 
+        Materialize.toast('Thanks for submitting your review!', 2500)
       });
 
       database.ref().on("value", function(snapshot){
@@ -195,7 +200,7 @@ var ourFunctions = {
         var linky = detailresults.marketdetails.GoogleLink;
         var schedule = detailresults.marketdetails.Schedule;
         var products = detailresults.marketdetails.Products;
-        
+
         //TODO: Jim/Stacy - query firebase to check if a comment exists for marketID (argID)
 
         $(".collapsible-body").html("<a target='_blank' href= " + linky + ">Google Link</a>"
