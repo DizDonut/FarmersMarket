@@ -212,7 +212,8 @@ var ourFunctions = {
     }); //end ajax call
   }, //end getSecondResults function
 
-  //on load: display foods in season based on current month in the DOM
+  /* foodsInSeason displays list of the current foods in season on page load 
+     based on current month */
   foodsInSeason: function () {
       // (moment.js for current month)
       var currentMonth = moment().month();

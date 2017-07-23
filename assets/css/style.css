@@ -2,12 +2,16 @@ html{
 	background-image: url("../images/MarketBgFive.jpg");
 }
 
-.brand-logo {
+.nav-wrapper {
 	font-family: 'Bellefair', serif;
 }
 
 .collapsible-body, .collapsible-header{
 	background-color: white;
+	opacity: 0.85;
+}
+
+#top-cards {
 	opacity: 0.85;
 }
 
@@ -23,4 +27,17 @@ html{
 	text-align: center;
 	color: #d7f7e5;
 	font-weight: bolder;
+}
+
+thead, tbody { display: block; }
+
+tbody {
+    height: 125px;       
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: auto;  /* Hide the horizontal scroll */
+}
+
+/* change cursor to pointer when hovering over rating star */
+#starRatings > i {
+	cursor: pointer; 
 }
