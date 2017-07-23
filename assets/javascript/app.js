@@ -1,100 +1,97 @@
 $(document).ready(function() {
 
   // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDm6wfYiroeycCdVHwK2tkV572AEQ1UJJw",
-      authDomain: "farmersmarket-f2d0f.firebaseapp.com",
-      databaseURL: "https://farmersmarket-f2d0f.firebaseio.com",
-      projectId: "farmersmarket-f2d0f",
-      storageBucket: "farmersmarket-f2d0f.appspot.com",
-      messagingSenderId: "74005566748"
-    };
-    firebase.initializeApp(config);
+  var config = {
+    apiKey: "AIzaSyDm6wfYiroeycCdVHwK2tkV572AEQ1UJJw",
+    authDomain: "farmersmarket-f2d0f.firebaseapp.com",
+    databaseURL: "https://farmersmarket-f2d0f.firebaseio.com",
+    projectId: "farmersmarket-f2d0f",
+    storageBucket: "farmersmarket-f2d0f.appspot.com",
+    messagingSenderId: "74005566748"
+  };
+  firebase.initializeApp(config);
 
-    // Creating a variable to reference the database
-    var database = firebase.database();
-        // Initial Values
-        var zipCode = "";
-        var rating = "";
-        var comments = "";
-        var marketId = "";
-        var lastComment = "Be the first to comment!";
+  // Creating a variable to reference the database
+  var database = firebase.database();
 
-        // jQuery functions so certain classes work on dynamic created elements
-        $('.collapsible').collapsible();
-        $('.scrollspy').scrollSpy();
-        $(".button-collapse").sideNav();
-        $("#modal1").modal();
+  // Initial Values
+  var zipCode = "";
+  var rating = "";
+  var comments = "";
+  var marketId = "";
+  var lastComment = "Be the first to comment!";
 
-        // update star ratings inside comment modal
-        $("#starRatings > i").on("click", function(){
-        $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
-        $(this).html("<i class='material-icons'/>star</i>");
-        rating = $(this).attr("data-value");
-        console.log(rating);
+  // jQuery functions so certain classes work on dynamic created elements
+  $('.collapsible').collapsible();
+  $('.scrollspy').scrollSpy();
+  $(".button-collapse").sideNav();
+  $("#modal1").modal();
 
-          // data-values less than "this", also changed to star
-          for (i = rating ; i > 0 ; i--) {
-            if (rating < $("#star" + i).attr("data-value")){
-              console.log("it is less");
-              $("#star" + i).html("<i class='material-icons'/>star_border</i>");
-            } else {
-              $("#star" + i).html("<i class='material-icons'/>star</i>");
-              console.log("it is more");
-            }
-          }
+  // update star ratings inside comment modal
+  $("#starRatings > i").on("click", function(){
+    $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
+    $(this).html("<i class='material-icons'/>star</i>");
+    rating = $(this).attr("data-value");
 
-        });
+    // data-values less than "this", also changed to star
+    for (i = rating ; i > 0 ; i--) {
+      if (rating < $("#star" + i).attr("data-value")){
+        $("#star" + i).html("<i class='material-icons'/>star_border</i>");
+      } else {
+        $("#star" + i).html("<i class='material-icons'/>star</i>");
+      } // end else
+    } // end for loop
+  }); // star rating click event
 
-        $(document).on("click", "#submit", function(event) {
-            event.preventDefault();
-            //retrieve input from user
-            zipCode = $("#zipSearch").val().trim();
-            $("#zipSearch").html("").val("");
-            //call initMap function, passing the zipCode variable as an argument
-            var map = ourFunctions.initMap(zipCode);
-            //call renderResults function, passing the map variable as an argument
-            ourFunctions.renderResults(map);
-            ourFunctions.getFirstResults(zipCode);
-        }); //end submit on click event
+  $(document).on("click", "#submit", function(event) {
+      event.preventDefault();
+      //retrieve input from user
+      zipCode = $("#zipSearch").val().trim();
+      $("#zipSearch").html("").val("");
+      //call initMap function, passing the zipCode variable as an argument
+      var map = ourFunctions.initMap(zipCode);
+      //call renderResults function, passing the map variable as an argument
+      ourFunctions.renderResults(map);
+      ourFunctions.getFirstResults(zipCode);
+  }); //end submit on click event
 
-      $(document).on("click", ".collapsible-header", function(event){
-        event.preventDefault();
-        marketId = $(this).attr("id");
-        ourFunctions.getSecondResults(marketId);
+  $(document).on("click", ".collapsible-header", function(event){
+    event.preventDefault();
+    marketId = $(this).attr("id");
+    ourFunctions.getSecondResults(marketId);
+  }); //end accordion click event
 
-      })//end accordion click event
+  $(document).on("click", "#commentSubmit", function(event) {
+    event.preventDefault();
+    comments = $("#comment").val().trim();
+    var newReview = database.ref().push();
 
-      $(document).on("click", "#commentSubmit", function(event) {
-        event.preventDefault();
+    //set database values
+    newReview.set({
+      marketId: marketId,
+      rating: rating,
+      comments: comments,
+      zipCode: zipCode
+    }); //end setter for database values
 
-        comments = $("#comment").val().trim();
+    // clearing comment form inputs
+    $( "#comment" ).html("").val("");
+    $("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
 
-        var newReview = database.ref().push();
+    // 2500 is the duration of the toast
+    Materialize.toast('Thanks for submitting your review!', 2500)
+  }); //end comment submit event
 
-        newReview.set({
-          marketId: marketId,
-          rating: rating,
-          comments: comments,
-          zipCode: zipCode
-        });
-
-// clearing comment form inputs 
-$( "#comment" ).html("").val("");
-$("#starRatings > i").html("<i class='material-icons'/>star_border</i>");
+  database.ref().on("value", function(snapshot){
+    console.log(snapshot.val().marketId);
+    console.log(snapshot.val().rating);
+    console.log(snapshot.val().comments);
+    console.log(snapshot.val().zipCode);
+  }), function(errorObject) {
+  console.log("Errors handled: " + errorObject.code)};
 
 
-        // 2500 is the duration of the toast
-        Materialize.toast('Thanks for submitting your review!', 2500)
-      });
 
-      database.ref().on("value", function(snapshot){
-        console.log(snapshot.val().marketId);
-        console.log(snapshot.val().rating);
-        console.log(snapshot.val().comments);
-        console.log(snapshot.val().zipCode);
-      }), function(errorObject) {
-      console.log("Errors handled: " + errorObject.code)};
 /*
   object to hold the functions
 */
@@ -141,7 +138,7 @@ var ourFunctions = {
   getFirstResults: function(zip) {
     var id = "";
     var name = "";
-
+    $("#ajaxResults").html("");
     $.ajax({
       type: "GET",
       contentType: "application/json; charset=utf-8",
@@ -183,6 +180,7 @@ var ourFunctions = {
   */
   getSecondResults: function(argID){
     var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
+    $(".collapsible-body").html("");
 
   $.ajax({
     type: "GET",
@@ -192,7 +190,7 @@ var ourFunctions = {
     dataType: 'jsonp',
     jsonpCallback: 'detailResultHandler'
   }).done(function(detailresults){
-    console.log(detailresults)
+
     for (var key in detailresults) {
       /*variables to hold results of second usda API call.  Results printed to HTML in onclick event
         starting on line 23*/
@@ -212,14 +210,14 @@ var ourFunctions = {
 
       }; //end for loop
     }); //end ajax call
-  },
+  }, //end getSecondResults function
 
   //on load: display foods in season based on current month in the DOM
   foodsInSeason: function () {
       // (moment.js for current month)
       var currentMonth = moment().month();
       var currentMonthText = moment().format('MMMM');
-      console.log("Current Month: " + currentMonth);
+      // console.log("Current Month: " + currentMonth);
       $("#current-month").text("Foods in season for the month of " + currentMonthText);
 
       // JSON data obtained via web crawler Apifier API:
@@ -244,7 +242,6 @@ var ourFunctions = {
                 foodArray.splice(i,1);
             }
         }
-        console.log(foodArray);
 
         $("#foodTable > tbody").append("<tr><td>" + foodArray[0] + "</td></tr>");
 
