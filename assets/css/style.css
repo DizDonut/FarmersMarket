@@ -1,5 +1,14 @@
+html{
+	background-image: url("../images/MarketBgFive.jpg");
+}
+
 .brand-logo {
 	font-family: 'Bellefair', serif;
+}
+
+.collapsible-body, .collapsible-header{
+	background-color: white;
+	opacity: 0.85;
 }
 
 #mapResults-go-here{
@@ -9,4 +18,10 @@
 
 .table-of-contents a{
 	color: white;
+}
+
+.flow-text{
+	text-align: center;
+	color: #d7f7e5;
+	font-weight: bolder;
 }

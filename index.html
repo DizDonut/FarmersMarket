@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--Import Google Icon Fonts -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css?family=Bellefair|Roboto:500i" rel="stylesheet">
-  
-  <!-- Compiled and minified Materialize CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-  
-  <!-- link to css stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  
-  <!--website optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>My Farmer's Market</title>
-</head>
+  <head>
+    <!--Import Google Icon Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Bellefair|Roboto:500i" rel="stylesheet">
+
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    <!-- link to css stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!--website optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>My Farmer's Market</title>
+  </head>
 <body>
   <!-- fixed navigation bar -->
   <div class="navbar-fixed">
@@ -23,63 +23,66 @@
       <div class="nav-wrapper green darken-2">
         <a href="#!" class="brand-logo">My Farmer's Market</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
         <!-- hides menu on medium devices and smaller -->
         <ul class="section table-of-contents right hide-on-med-and-down">
           <li><a href="#zipSearch">Find A Market</a></li>
           <li><a href="#mapResults-go-here">Results</a></li>
           <li><a href="#about">About</a></li>
-      </ul>
-      <ul class="side-nav section table-of-contents" id="mobile-demo">
-        <li><a href="#zipSearch">Find A Market</a></li>
-        <li><a href="#mapResults-go-here">Results</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
-      </div>
-    </nav>
-  </div>
+        </ul> <!-- ends list item for med device -->
+
+        <ul class="side-nav section table-of-contents" id="mobile-demo">
+          <li><a href="#zipSearch">Find A Market</a></li>
+          <li><a href="#mapResults-go-here">Results</a></li>
+          <li><a href="#about">About</a></li>
+        </ul> <!-- ends list item for mobile device -->
+      </div> <!-- end nav wrapper -->
+    </nav> <!-- end nav -->
+  </div> <!-- end navbar div -->
 
   <!-- space filler below navbar  -->
   <div style="height:25px"></div>
 
-    <div class="container">   
-        <div class="row">
-            <!-- ZIP code search bar -->
-            <div class="col s3 m6">
-                <div class="card green darken-1 z-depth-4">
-                    <div class="card-content white-text">
-                        <span class="card-title"><i class="material-icons hide-on-small-only prefix">pageview</i>ZIP Code Search</span>
-                        <input id="zipSearch" type="text" class="validate section scrollspy">
-                        <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <!-- ZIP code search bar -->
+      <div class="col s3 m6">
+        <div class="card green darken-1 z-depth-4">
+          <div class="card-content white-text">
+            <span class="card-title"><i class="material-icons hide-on-small-only prefix">pageview</i>ZIP Code Search</span>
+            <input id="zipSearch" type="text" class="validate section scrollspy">
+            <button type="text" class="btn waves-effect waves-light green darken-2" id="submit">Submit</button>
+          </div> <!-- end card content div -->
+        </div> <!-- end card type -->
+      </div> <!-- end column for zip code search input -->
 
-            <!-- Current foods in season -->
-            <div class="col s9 m6">
-                <div class="card green darken-1 z-depth-4">
-                    <div class="card-content white-text" id="foodsInSeason">
-                        <span id="current-month" class="card-title">Foods In Season for </span>
-                        <table class="responsive-table" id="foodTable">
-                            <tbody>
-                                <!-- table of foods dynamically added here -->
-                        </tbody>
-                        </table>
-                    </div>
-                    <div class="card-action">
-                        <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
-                    </div>
-                </div>
-            </div>
+      <!-- Current foods in season -->
+      <div class="col s9 m6">
+        <div class="card green darken-1 z-depth-4">
+          <div class="card-content white-text" id="foodsInSeason">
+            <span id="current-month" class="card-title">Foods In Season for </span>
+              <table class="responsive-table" id="foodTable">
+                <tbody></tbody> <!-- table of foods dynamically added here -->
+              </table> <!-- end table element -->
+          </div> <!-- end card content for foods in season -->
+            <div class="card-action">
+              <a href="http://www.eattheseasons.com/" target="_blank">Eat The Seasons</a>
+            </div> <!-- end card action div -->
+        </div> <!-- end card div -->
+      </div> <!-- end column for foods in season table -->
 
-        </div>
-      </div>
-    </div>
-  </div>
+    </div> <!-- end row -->
+  </div> <!-- end container -->
+
+  <!-- google map results display here -->
   <div class="row section scrollspy" id="mapResults-go-here"></div>
-  <!-- accordion results from ajax call display here  -->
-  <div class="row" id="ajaxResults"></div>
 
-  <div style="height:750px"></div>
+  <!-- accordion results from ajax call display here  -->
+  <div class="row" id="ajaxResults">
+    <h3 class="flow-text">Search Results</h3>
+  </div>
+
+  <div style="height:50px"></div>
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
@@ -91,34 +94,21 @@
           <div class="input-field col s12">
             <input id="comment" type="text" class="validate">
             <label for="image_url">Comment</label>
-          </div>
+          </div> <!-- end input div -->
             <div id="starRatings">
               <i data-min="0" data-max="5" data-value="1" id="star1" class="material-icons">star_border</i>
               <i data-min="0" data-max="5" data-value="2" id="star2" class="material-icons">star_border</i>
               <i data-min="0" data-max="5" data-value="3" id="star3" class="material-icons">star_border</i>
               <i data-min="0" data-max="5" data-value="4" id="star4" class="material-icons">star_border</i>
               <i data-min="0" data-max="5" data-value="5" id="star5" class="material-icons">star_border</i>
-            <button id="commentSubmit" class="modal-action modal-close btn waves-effect waves-light">Submit<i class="material-icons right">send</i>
-            </button>
-            </div>
-        </div>
-      </div>
-    </div>
-      
-    <!--Rate and Review Panel-->
-    <div class="panel-body">
-
-    </div>
-  </div>
-  
-  <div class="row section scrollspy" id="mapResults-go-here"></div>
-
-  <!-- accordion results from ajax call display here  -->
-  <div class="row" id="ajaxResults">
-    <h3 class="flow-text">Search Results</h3>
-  </div>
-
-  <div style="height:750px"></div>
+              <button id="commentSubmit" class="modal-action modal-close btn waves-effect waves-light">Submit<i class="material-icons right">send</i>
+              </button> <!-- end comment submit button -->
+            </div> <!-- end star ratings div -->
+        </div> <!-- end modal form row -->
+      </div> <!-- end column within modal -->
+    </div> <!-- end second row -->
+    <div class="panel-body"></div> <!--Rate and Review Panel-->
+  </div> <!-- end modal form -->
 
   <footer class="page-footer green darken-2">
     <div class="container">
@@ -136,16 +126,16 @@
             <li><a class="github-button" href="https://github.com/JimGray9999" aria-label="Follow @JimGray9999 on GitHub">Follow @JimGray9999</a></li>
             <li><a class="github-button" href="https://github.com/RaidoFive" aria-label="Follow @RaidoFive on GitHub">Follow @RaidoFive</a></li>
             <li><a class="github-button" href="https://github.com/papergrapefruit" aria-label="Follow @papergrapefruit on GitHub">Follow @papergrapefruit</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+          </ul> <!-- end list element -->
+        </div> <!-- end column -->
+      </div> <!-- end footer row -->
+    </div> <!-- end container for footer -->
     <div class="footer-copyright">
       <div id="about" class="container section scrollspy">
         © 2017
-      </div>
-    </div>
-  </footer>
+      </div> <!-- end container scrollspy div -->
+    </div> <!-- end copyright div -->
+  </footer> <!-- end footer -->
 
   <!-- scripts -->
     <!-- Firebase  -->
