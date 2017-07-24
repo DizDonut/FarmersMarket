@@ -19,7 +19,6 @@ $(document).ready(function() {
   var rating = "";
   var comments = "";
   var marketId = "";
-  var lastComment = "Be the first to comment!";
 
   // jQuery functions so certain classes work on dynamic created elements
   $('.collapsible').collapsible();
@@ -81,16 +80,6 @@ $(document).ready(function() {
     // 2500 is the duration of the toast
     Materialize.toast('Thanks for submitting your review!', 2500)
   }); //end comment submit event
-
-  database.ref().on("value", function(snapshot){
-    console.log(snapshot.val().marketId);
-    console.log(snapshot.val().rating);
-    console.log(snapshot.val().comments);
-    console.log(snapshot.val().zipCode);
-  }), function(errorObject) {
-  console.log("Errors handled: " + errorObject.code)};
-
-
 
 /*
   object to hold the functions
@@ -179,8 +168,17 @@ var ourFunctions = {
     @param argID: value returned from the getFirstResults function
   */
   getSecondResults: function(argID){
+    //dynamically create elements
     var commentModal = ("<button class='waves-effect waves-light btn modal-trigger' data-target='modal1'>Leave a Comment!</button>")
     $(".collapsible-body").html("");
+    var lastComment = ("<div id='" + argID + "'</div>");
+
+    var ref = firebase.database().ref();
+            ref.orderByChild("marketId").equalTo(argID).on("child_added", function(snapshot) {
+              console.log(snapshot.val().marketId);
+              console.log(snapshot.val().comments);
+              lastComment = snapshot.val().comments;
+            }); //end database query
 
   $.ajax({
     type: "GET",
@@ -212,7 +210,7 @@ var ourFunctions = {
     }); //end ajax call
   }, //end getSecondResults function
 
-  /* foodsInSeason displays list of the current foods in season on page load 
+  /* foodsInSeason displays list of the current foods in season on page load
      based on current month */
   foodsInSeason: function () {
       // (moment.js for current month)
