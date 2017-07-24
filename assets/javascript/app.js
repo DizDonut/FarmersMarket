@@ -132,7 +132,7 @@ var ourFunctions = {
       type: "GET",
       contentType: "application/json; charset=utf-8",
       // submit a get request to the restful service zipSearch or locSearch.
-      url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
+      url: "https://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
       // or
       // url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng,
       dataType: 'jsonp',
@@ -184,7 +184,7 @@ var ourFunctions = {
     type: "GET",
     contentType: "application/json; charset=utf-8",
     // submit a get request to the restful service mktDetail.
-    url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + argID,
+    url: "https://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + argID,
     dataType: 'jsonp',
     jsonpCallback: 'detailResultHandler'
   }).done(function(detailresults){
