@@ -1,5 +1,5 @@
 html{
-	background-image: url("../images/MarketBgFive.jpg");
+	background-image: url("../images/marketBgFive.jpg");
 }
 
 .nav-wrapper {
@@ -32,12 +32,12 @@ html{
 thead, tbody { display: block; }
 
 tbody {
-    height: 125px;       
+    height: 125px;
     overflow-y: auto;    /* Trigger vertical scroll    */
     overflow-x: auto;  /* Hide the horizontal scroll */
 }
 
 /* change cursor to pointer when hovering over rating star */
 #starRatings > i {
-	cursor: pointer; 
+	cursor: pointer;
 }
