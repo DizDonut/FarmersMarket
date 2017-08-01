@@ -111,7 +111,7 @@ var ourFunctions = {
     //beginning of google maps embed api url
     var url = "https://www.google.com/maps/embed/v1/search"
     url += "?" + $.param({
-      "key": "AIzaSyC-esHVNQ4muZerDSPt3ChxUd8-agTMc_c",
+      "key": "map key goes here",
       "q": "Farmers+Markets+near" + address
     });
     return url;
